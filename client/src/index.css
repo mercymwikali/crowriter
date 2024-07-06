@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(216, 216, 216);
+  border-radius: 40px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgb(216, 216, 216);
+}
+
+
+.roboto-thin {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.roboto-light {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.roboto-regular {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.roboto-medium {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.switchColor{
+  background-color: 'green' !important;
+}
+
+.roboto-bold {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.roboto-black {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.roboto-thin-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.roboto-light-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.roboto-regular-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.roboto-medium-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.roboto-bold-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.roboto-black-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: "Roboto", sans-serif;
+}
+
+.profile-card {
+  transition: all 0.3s ease;
+}
+
+.profile-card:hover {
+  border: 2px solid #ff4500;
+  color: #ff4500;
+}
+
+.profile-card:hover .ant-avatar {
+  color: #ff4500 !important;
+}
+
+.profile-card:hover .ant-typography {
+  color: #ff4500 !important;
+}
+
+.home{
+  height: 64px;
+  padding: 0 50px;
+  color: rgba(0, 0, 0, 0.88);
+  line-height: 64px;
+  background: #f5f5f5 !important;
+}
+.inv-container {
+  padding: 20px;
+}
+
+.inv-header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+
+}
+
+.invoice-info {
+  margin-bottom: 10px;
+  /* border-bottom: 1px solid #ccc; */
+  padding-bottom: 10px;
+  width: 100%;
+  
+}
+
+.user-info {
+  margin-bottom: 10px;
+  text-align: right;
+  width: 100%;
+  /* border-bottom: 1px solid #ccc; */
+}
+
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 20px;
+}
+
+.actions button {
+  margin-bottom: 10px;
+}
+
+
+.ant-col {
+  margin-bottom: 16px;
+}
+.uploaded-files-container {
+  max-height: 200px; /* Adjust the height as needed */
+  overflow-y: auto;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #f0f0f0;
+  background-color: #fafafa;
+  border-radius: 4px;
+}
+
+
+
+/* Media Queries for Drawer and Horizontal Menu */
+@media (max-width: 768px) {
+  .drawer-menu {
+    display: block;
+  }
+
+  .horizontal-menu {
+    display: none;
+  }
+
+  .menu-button {
+    display: block;
+  }
+}
+
+@media (min-width: 768px) {
+  .drawer-menu {
+    display: none;
+  }
+  .menu-button{
+    display: none;
+  }
+
+  .horizontal-menu {
+    display: block;
+  }
+}
+
+.menu-button {
+  display: none;
+}
+
+/* @media (max-width: 1680px) {
+  .menu-button {
+    display: block;
+  }
+} */

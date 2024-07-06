@@ -1,0 +1,292 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["relationJoins", "driverAdapters", "metrics"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model representing manager, freelancer, and admin
+model User {
+  id              String    @id @default(uuid())
+  fname           String
+  lname           String
+  email           String    @unique
+  password        String
+  role            Role ?     @default(FREELANCER)
+  profilePic      String? // To store profile picture
+  refreshToken    String? // To store refresh token
+  refreshTokenExp DateTime? // To store refresh token expiration
+  online          Boolean   @default(false)
+  active          Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  // Add manager-specific fields
+  experience              String? // Years of experience
+  leadershipStyle         String? // Leadership style
+  teamSize                String? // Team size
+  achievements            String? // Key achievements
+  professionalDevelopment String? // Professional development
+
+  // Add freelancer-specific fields
+  gender             String? // Gender
+  country            String? // Country
+  city               String? // City
+  altEmail           String? // Alternative Email
+  phone              String? // Phone
+  altPhone           String? // Alternative Phone
+  highestDegree      String? // Highest Degree
+  citationStyles     String? // Citation Styles
+  languages          String? // Languages
+  disciplines        String? // Disciplines
+  specialization     String? // Specialization
+  additionalSoftware String? // Additional Software
+  aboutMe            String? // About Me
+
+  orders        Order[] // Relation with the Order model
+  bids          Bids[]
+  assignments   Assignment[]
+  SubmittedJobs SubmittedJobs[]
+  cancelledJobs CancelledJobs[]
+  invoices      Invoice[] // Invoices created by the user
+  payments      Payment[] // Payments made by the user
+  fines         Fines[]
+  reviews       Review[]        @relation("Reviewer") // Reviews made by the user as a reviewer
+  reviewed      Review[]        @relation("ReviewedUser") // Reviews received by the user as a freelancer
+  notifications Notification[] // Notifications received by the user
+
+  freelancerApplications FreelancerApplication[]
+}
+
+enum Role {
+  MANAGER
+  FREELANCER
+  ADMIN
+}
+
+// New model for freelancer applications
+model FreelancerApplication {
+  id        String            @id @default(uuid())
+  user      User              @relation(fields: [userId], references: [id])
+  userId    String
+  status    ApplicationStatus @default(PENDING)
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
+  @@index([userId])
+}
+
+enum ApplicationStatus {
+  PENDING
+  APPROVED
+  DECLINED
+}
+
+model Order {
+  id              String      @id @default(uuid())
+  orderId         String
+  topic           String
+  category        String?
+  service         String?
+  sources         String?
+  citation        String?
+  pages           Decimal?
+  cpp             Int         @default(0)
+  amount          Int         @default(0)
+  deadline        DateTime
+  duration        String
+  instructions    String
+  attachments     String[]   // Change to array to store attachments
+  additionalNotes String?
+  status          OrderStatus @default(PENDING)
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  freelancerId String?
+  freelancer   User?   @relation(fields: [freelancerId], references: [id])
+
+  bids          Bids[]
+  assignments   Assignment[]
+  SubmittedJobs SubmittedJobs[]
+  cancelledJobs CancelledJobs[]
+  fines         Fines[]
+  reviews       Review[] // Reviews associated with this order
+
+  invoiceId String? // Foreign key to link an order to an invoice
+  invoice   Invoice? @relation(fields: [invoiceId], references: [id])
+
+  notifications Notification[] // Notifications related to this order
+
+  @@index([freelancerId, status, createdAt, orderId])
+}
+
+enum OrderStatus {
+  PENDING
+  ASSIGNED
+  ACCEPTED
+  COMPLETED
+  CANCELLED
+  BIDDED
+}
+
+model Bids {
+  id           String      @id @default(uuid())
+  order        Order       @relation(fields: [orderId], references: [id])
+  orderId      String
+  freelancer   User        @relation(fields: [freelancerId], references: [id])
+  freelancerId String
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  status       OrderStatus @default(PENDING)
+
+  @@index([freelancerId, status, createdAt])
+}
+
+model Assignment {
+  id           String      @id @default(uuid())
+  order        Order       @relation(fields: [orderId], references: [id])
+  orderId      String
+  freelancer   User        @relation(fields: [freelancerId], references: [id])
+  freelancerId String
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  status       OrderStatus @default(PENDING)
+
+  @@index([freelancerId, status, createdAt])
+}
+
+model SubmittedJobs {
+  id           String      @id @default(uuid())
+  order        Order       @relation(fields: [orderId], references: [id])
+  orderId      String
+  freelancer   User        @relation(fields: [freelancerId], references: [id])
+  freelancerId String
+  file_Path  String
+  file_mimeType String
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  status       OrderStatus @default(PENDING)
+
+  @@index([freelancerId, status, createdAt])
+}
+
+model CancelledJobs {
+  id           String      @id @default(uuid())
+  order        Order       @relation(fields: [orderId], references: [id])
+  orderId      String
+  freelancer   User?  @relation(fields: [freelancerId], references: [id])
+  freelancerId String
+  attachments  String ?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  status       OrderStatus @default(PENDING)
+}
+
+// New model for Invoices
+model Invoice {
+  id            String   @id @default(uuid())
+  invoiceNumber String   @unique
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  totalAmount   Int      @default(0)
+  finalAmount   Int      @default(0) // Make sure this field is defined correctly
+  orders        Order[]
+  payments      Payment[]
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  isDraft       Boolean  @default(false)
+  fines         Fines[]
+  reviews       Review[]
+}
+
+
+// Enum to define possible payment modes
+enum ModeOfPayment {
+  MPESA
+  CREDIT_CARD
+  BANK_TRANSFER
+  PAYPAL
+  CASH
+  CHEQUE
+  OTHER
+}
+
+// Model to handle payments
+model Payment {
+  id            String        @id @default(uuid())
+  paymentRef    String        @unique
+  amount        Int
+  modeOfPayment ModeOfPayment
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  invoiceId String // Foreign key to link payment to an invoice
+  invoice   Invoice @relation(fields: [invoiceId], references: [id])
+
+  userId String // Foreign key to link the payment to the user
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model Fines {
+  id           String   @id @default(uuid())
+  order        Order    @relation(fields: [orderId], references: [id])
+  orderId      String
+  freelancer   User     @relation(fields: [freelancerId], references: [id])
+  freelancerId String
+  amount       Int
+  reason       String?
+  invoiceId    String?
+  invoice      Invoice? @relation(fields: [invoiceId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// Model to handle reviews
+model Review {
+  id      String @id @default(uuid())
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id])
+
+  reviewerId String
+  reviewer   User   @relation("Reviewer", fields: [reviewerId], references: [id])
+
+  freelancerId String
+  freelancer   User   @relation("ReviewedUser", fields: [freelancerId], references: [id])
+
+  rating    Int?
+  comment   String?
+
+  invoiceId String?
+  invoice   Invoice? @relation(fields: [invoiceId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Notification {
+  id        String           @id @default(uuid())
+  userId    String
+  user      User             @relation(fields: [userId], references: [id])
+  order     Order?           @relation(fields: [orderId], references: [id])
+  orderId   String?
+  title     String?
+  message   String?
+  read      Boolean          @default(false)
+  type      NotificationType
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+}
+
+enum NotificationType {
+  ORDER
+  REVIEW
+  FINE
+  INVOICE
+  PAYMENT
+  OTHER
+}

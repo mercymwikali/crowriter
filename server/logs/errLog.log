@@ -1,0 +1,1370 @@
+20240608	11:45:14	ddf63f9b-15cd-4994-a522-ad286a31fa02	PrismaClientInitializationError: 
+Invalid `prisma.user.findUnique()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:13:40
+
+  10 if (!fname || !lname || !email || !password) {
+  11   return res.status(400).json({ message: "Please add all fields" });
+  12 }
+→ 13 const userExists = await prisma.user.findUnique(
+Can't reach database server at `roundhouse.proxy.rlwy.net:54383`
+
+Please make sure your database server is running at `roundhouse.proxy.rlwy.net:54383`.	POST	/auth/register	undefined
+20240608	11:46:13	f4c77fd5-6def-49fe-9b8a-39f5f99387bd	PrismaClientValidationError: 
+Invalid `prisma.user.create()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:21:34
+
+  18 const salt = await bcrypt.genSalt(10);
+  19 const hashedPassword = await bcrypt.hash(password, salt);
+  20 
+→ 21 const user = await prisma.user.create({
+       data: {
+         fname: "John",
+         lname: "Doe",
+         email: "johndoe@example.com",
+         password: "$2b$10$F2E1MR6/5MpNYO0VeSrKm.toD45ttTYxSgK4Yy.4uUBXKNoQFzEYa",
+         role: "FREELANCER",
+         profilepic: "http://example.com/profilepic.jpg",
+         active: true,
+     +   profilePic: String
+       }
+     })
+
+Argument `profilePic` is missing.	POST	/auth/register	undefined
+20240608	11:46:30	ba10dd97-3e42-4b23-8cb6-75438d64c879	PrismaClientValidationError: 
+Invalid `prisma.user.create()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:21:34
+
+  18 const salt = await bcrypt.genSalt(10);
+  19 const hashedPassword = await bcrypt.hash(password, salt);
+  20 
+→ 21 const user = await prisma.user.create({
+       data: {
+         fname: "John",
+         lname: "Doe",
+         email: "johndoe@example.com",
+         password: "$2b$10$Ununu3KklG0KQ2YEdRSdnOyaNji46/jhGh2IPmesOz2B3BftX0rY6",
+         role: "FREELANCER",
+         profilepic: undefined,
+         active: true,
+     +   profilePic: String
+       }
+     })
+
+Argument `profilePic` is missing.	POST	/auth/register	undefined
+20240608	11:58:45	8b679668-f628-4a2c-8ede-ca871e630dbc	PrismaClientValidationError: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:130:21
+
+  127 const logOutUser = asyncHandler(async (req, res) => {
+  128   const { userId } = req.body;
+  129 
+→ 130   await prisma.user.update({
+          where: {
+            id: undefined,
+        ?   email?: String,
+        ?   AND?: UserWhereInput | UserWhereInput[],
+        ?   OR?: UserWhereInput[],
+        ?   NOT?: UserWhereInput | UserWhereInput[],
+        ?   fname?: StringFilter | String,
+        ?   lname?: StringFilter | String,
+        ?   password?: StringFilter | String,
+        ?   role?: EnumRoleFilter | Role,
+        ?   profilePic?: StringFilter | String,
+        ?   token?: StringNullableFilter | String | Null,
+        ?   tokenExp?: DateTimeNullableFilter | DateTime | Null,
+        ?   refreshToken?: StringNullableFilter | String | Null,
+        ?   refreshTokenExp?: DateTimeNullableFilter | DateTime | Null,
+        ?   online?: BoolFilter | Boolean,
+        ?   active?: BoolFilter | Boolean,
+        ?   createdAt?: DateTimeFilter | DateTime,
+        ?   updatedAt?: DateTimeFilter | DateTime,
+        ?   experience?: StringNullableFilter | String | Null,
+        ?   leadershipStyle?: StringNullableFilter | String | Null,
+        ?   teamSize?: StringNullableFilter | String | Null,
+        ?   achievements?: StringNullableFilter | String | Null,
+        ?   professionalDevelopment?: StringNullableFilter | String | Null,
+        ?   gender?: StringNullableFilter | String | Null,
+        ?   country?: StringNullableFilter | String | Null,
+        ?   city?: StringNullableFilter | String | Null,
+        ?   altEmail?: StringNullableFilter | String | Null,
+        ?   phone?: StringNullableFilter | String | Null,
+        ?   altPhone?: StringNullableFilter | String | Null,
+        ?   highestDegree?: StringNullableFilter | String | Null,
+        ?   citationStyles?: StringNullableFilter | String | Null,
+        ?   languages?: StringNullableFilter | String | Null,
+        ?   disciplines?: StringNullableFilter | String | Null,
+        ?   specialization?: StringNullableFilter | String | Null,
+        ?   additionalSoftware?: StringNullableFilter | String | Null,
+        ?   aboutMe?: StringNullableFilter | String | Null,
+        ?   orders?: OrderListRelationFilter,
+        ?   bids?: BidsListRelationFilter,
+        ?   assignments?: AssignmentListRelationFilter,
+        ?   completedJobs?: CompletedJobsListRelationFilter,
+        ?   cancelledJobs?: CancelledJobsListRelationFilter,
+        ?   invoices?: InvoiceListRelationFilter,
+        ?   payments?: PaymentListRelationFilter,
+        ?   fines?: FinesListRelationFilter,
+        ?   reviews?: ReviewListRelationFilter,
+        ?   reviewed?: ReviewListRelationFilter,
+        ?   notifications?: NotificationListRelationFilter,
+        ?   freelancerApplications?: FreelancerApplicationListRelationFilter
+          },
+          data: {
+            refreshToken: null,
+            refreshTokenExp: null
+          }
+        })
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.	GET	/auth/logout	undefined
+20240608	12:01:11	18a025d7-0fca-4664-a636-e32a55bc492f	PrismaClientInitializationError: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:130:21
+
+  127 const logOutUser = asyncHandler(async (req, res) => {
+  128   const { userId } = req.body;
+  129 
+→ 130   await prisma.user.update(
+Can't reach database server at `roundhouse.proxy.rlwy.net:54383`
+
+Please make sure your database server is running at `roundhouse.proxy.rlwy.net:54383`.	GET	/auth/logout/015880c0-dc61-4116-a534-885c00b0f061	undefined
+20240608	12:01:29	79162b41-d800-4d6c-8569-cc2f34d302d3	PrismaClientValidationError: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:130:21
+
+  127 const logOutUser = asyncHandler(async (req, res) => {
+  128   const { userId } = req.body;
+  129 
+→ 130   await prisma.user.update({
+          where: {
+            id: undefined,
+        ?   email?: String,
+        ?   AND?: UserWhereInput | UserWhereInput[],
+        ?   OR?: UserWhereInput[],
+        ?   NOT?: UserWhereInput | UserWhereInput[],
+        ?   fname?: StringFilter | String,
+        ?   lname?: StringFilter | String,
+        ?   password?: StringFilter | String,
+        ?   role?: EnumRoleFilter | Role,
+        ?   profilePic?: StringFilter | String,
+        ?   token?: StringNullableFilter | String | Null,
+        ?   tokenExp?: DateTimeNullableFilter | DateTime | Null,
+        ?   refreshToken?: StringNullableFilter | String | Null,
+        ?   refreshTokenExp?: DateTimeNullableFilter | DateTime | Null,
+        ?   online?: BoolFilter | Boolean,
+        ?   active?: BoolFilter | Boolean,
+        ?   createdAt?: DateTimeFilter | DateTime,
+        ?   updatedAt?: DateTimeFilter | DateTime,
+        ?   experience?: StringNullableFilter | String | Null,
+        ?   leadershipStyle?: StringNullableFilter | String | Null,
+        ?   teamSize?: StringNullableFilter | String | Null,
+        ?   achievements?: StringNullableFilter | String | Null,
+        ?   professionalDevelopment?: StringNullableFilter | String | Null,
+        ?   gender?: StringNullableFilter | String | Null,
+        ?   country?: StringNullableFilter | String | Null,
+        ?   city?: StringNullableFilter | String | Null,
+        ?   altEmail?: StringNullableFilter | String | Null,
+        ?   phone?: StringNullableFilter | String | Null,
+        ?   altPhone?: StringNullableFilter | String | Null,
+        ?   highestDegree?: StringNullableFilter | String | Null,
+        ?   citationStyles?: StringNullableFilter | String | Null,
+        ?   languages?: StringNullableFilter | String | Null,
+        ?   disciplines?: StringNullableFilter | String | Null,
+        ?   specialization?: StringNullableFilter | String | Null,
+        ?   additionalSoftware?: StringNullableFilter | String | Null,
+        ?   aboutMe?: StringNullableFilter | String | Null,
+        ?   orders?: OrderListRelationFilter,
+        ?   bids?: BidsListRelationFilter,
+        ?   assignments?: AssignmentListRelationFilter,
+        ?   completedJobs?: CompletedJobsListRelationFilter,
+        ?   cancelledJobs?: CancelledJobsListRelationFilter,
+        ?   invoices?: InvoiceListRelationFilter,
+        ?   payments?: PaymentListRelationFilter,
+        ?   fines?: FinesListRelationFilter,
+        ?   reviews?: ReviewListRelationFilter,
+        ?   reviewed?: ReviewListRelationFilter,
+        ?   notifications?: NotificationListRelationFilter,
+        ?   freelancerApplications?: FreelancerApplicationListRelationFilter
+          },
+          data: {
+            refreshToken: null,
+            refreshTokenExp: null
+          }
+        })
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.	GET	/auth/logout/015880c0-dc61-4116-a534-885c00b0f061	undefined
+20240608	12:06:03	ac5c6636-ad50-41ab-b042-c95c480e63da	PrismaClientValidationError: 
+Invalid `prisma.user.create()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:21:34
+
+  18 const salt = await bcrypt.genSalt(10);
+  19 const hashedPassword = await bcrypt.hash(password, salt);
+  20 
+→ 21 const user = await prisma.user.create({
+       data: {
+         fname: "Alice",
+         lname: "Johnson",
+         email: "alice.johnson@example.com",
+         password: "$2b$10$CufKQg3ES1yyfUFpWLoFHOogMBXndXeUY0fdZCP4e3Uv7LVHqhOGK",
+         role: "admin",
+               ~~~~~~~
+         profilePic: "profilepic.jpg",
+         active: true
+       }
+     })
+
+Invalid value for argument `role`. Expected Role.	POST	/auth/register	undefined
+20240609	20:17:28	1d58bef5-8100-4bca-95ef-778f49e2c050	ReferenceError: jwt is not defined	GET	/orders/list	http://localhost:5173
+20240609	20:17:28	97db0238-f292-4ef5-ba1f-6f01b8c9e9a0	ReferenceError: jwt is not defined	GET	/orders/list	http://localhost:5173
+20240609	20:18:22	ae4bbb2d-6deb-401a-8d78-f9654da812a7	ReferenceError: jwt is not defined	GET	/orders/list	http://localhost:5173
+20240609	20:18:22	aef08ea9-45e9-408d-8bba-f01c8fd3779c	ReferenceError: jwt is not defined	GET	/orders/list	http://localhost:5173
+20240609	20:19:05	4febe10a-6209-4553-ab3f-0c9d26ea192e	ReferenceError: jwt is not defined	GET	/orders/list	http://localhost:5173
+20240609	20:19:05	5a772344-616f-4396-88b3-6d3141ce8019	ReferenceError: jwt is not defined	GET	/orders/list	http://localhost:5173
+20240609	20:20:07	1bb8413b-b2de-4f29-9190-d1b8a969138b	ReferenceError: jwt is not defined	GET	/orders/list	http://localhost:5173
+20240609	20:20:28	23b34821-78c1-40c2-bf07-c69682b3ad35	ReferenceError: jwt is not defined	GET	/orders/list	http://localhost:5173
+20240609	20:59:26	fb441b21-d668-4798-9b19-7d9372b6d144	ReferenceError: jwt is not defined	GET	/orders/list	http://localhost:5173
+20240609	20:59:26	52656606-d339-42d4-ba54-cfb15335c814	ReferenceError: jwt is not defined	GET	/orders/list	http://localhost:5173
+20240609	21:00:55	08e42b89-6bfc-42a1-bd9e-79cdf832d2c8	ReferenceError: jwt is not defined	GET	/orders/list	http://localhost:5173
+20240609	21:00:55	a04d4df8-f197-4cab-97b3-1de8b6a29256	ReferenceError: jwt is not defined	GET	/orders/list	http://localhost:5173
+20240610	15:00:25	82900505-a0b2-4986-bb39-7a9f0940be37	PrismaClientValidationError: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:148:21
+
+  145 const logOutUser = asyncHandler(async (req, res) => {
+  146   const { userId } = req.body;
+  147 
+→ 148   await prisma.user.update({
+          where: {
+            id: undefined,
+        ?   email?: String,
+        ?   AND?: UserWhereInput | UserWhereInput[],
+        ?   OR?: UserWhereInput[],
+        ?   NOT?: UserWhereInput | UserWhereInput[],
+        ?   fname?: StringFilter | String,
+        ?   lname?: StringFilter | String,
+        ?   password?: StringFilter | String,
+        ?   role?: EnumRoleFilter | Role,
+        ?   profilePic?: StringFilter | String,
+        ?   token?: StringNullableFilter | String | Null,
+        ?   tokenExp?: DateTimeNullableFilter | DateTime | Null,
+        ?   refreshToken?: StringNullableFilter | String | Null,
+        ?   refreshTokenExp?: DateTimeNullableFilter | DateTime | Null,
+        ?   online?: BoolFilter | Boolean,
+        ?   active?: BoolFilter | Boolean,
+        ?   createdAt?: DateTimeFilter | DateTime,
+        ?   updatedAt?: DateTimeFilter | DateTime,
+        ?   experience?: StringNullableFilter | String | Null,
+        ?   leadershipStyle?: StringNullableFilter | String | Null,
+        ?   teamSize?: StringNullableFilter | String | Null,
+        ?   achievements?: StringNullableFilter | String | Null,
+        ?   professionalDevelopment?: StringNullableFilter | String | Null,
+        ?   gender?: StringNullableFilter | String | Null,
+        ?   country?: StringNullableFilter | String | Null,
+        ?   city?: StringNullableFilter | String | Null,
+        ?   altEmail?: StringNullableFilter | String | Null,
+        ?   phone?: StringNullableFilter | String | Null,
+        ?   altPhone?: StringNullableFilter | String | Null,
+        ?   highestDegree?: StringNullableFilter | String | Null,
+        ?   citationStyles?: StringNullableFilter | String | Null,
+        ?   languages?: StringNullableFilter | String | Null,
+        ?   disciplines?: StringNullableFilter | String | Null,
+        ?   specialization?: StringNullableFilter | String | Null,
+        ?   additionalSoftware?: StringNullableFilter | String | Null,
+        ?   aboutMe?: StringNullableFilter | String | Null,
+        ?   orders?: OrderListRelationFilter,
+        ?   bids?: BidsListRelationFilter,
+        ?   assignments?: AssignmentListRelationFilter,
+        ?   completedJobs?: CompletedJobsListRelationFilter,
+        ?   cancelledJobs?: CancelledJobsListRelationFilter,
+        ?   invoices?: InvoiceListRelationFilter,
+        ?   payments?: PaymentListRelationFilter,
+        ?   fines?: FinesListRelationFilter,
+        ?   reviews?: ReviewListRelationFilter,
+        ?   reviewed?: ReviewListRelationFilter,
+        ?   notifications?: NotificationListRelationFilter,
+        ?   freelancerApplications?: FreelancerApplicationListRelationFilter
+          },
+          data: {
+            refreshToken: null,
+            refreshTokenExp: null
+          }
+        })
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.	GET	/auth/logout	http://localhost:5173
+20240610	15:01:17	8ec6874e-4aef-41c2-a85b-e119f64a3114	PrismaClientValidationError: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:148:21
+
+  145 const logOutUser = asyncHandler(async (req, res) => {
+  146   const { userId } = req.body;
+  147 
+→ 148   await prisma.user.update({
+          where: {
+            id: undefined,
+        ?   email?: String,
+        ?   AND?: UserWhereInput | UserWhereInput[],
+        ?   OR?: UserWhereInput[],
+        ?   NOT?: UserWhereInput | UserWhereInput[],
+        ?   fname?: StringFilter | String,
+        ?   lname?: StringFilter | String,
+        ?   password?: StringFilter | String,
+        ?   role?: EnumRoleFilter | Role,
+        ?   profilePic?: StringFilter | String,
+        ?   token?: StringNullableFilter | String | Null,
+        ?   tokenExp?: DateTimeNullableFilter | DateTime | Null,
+        ?   refreshToken?: StringNullableFilter | String | Null,
+        ?   refreshTokenExp?: DateTimeNullableFilter | DateTime | Null,
+        ?   online?: BoolFilter | Boolean,
+        ?   active?: BoolFilter | Boolean,
+        ?   createdAt?: DateTimeFilter | DateTime,
+        ?   updatedAt?: DateTimeFilter | DateTime,
+        ?   experience?: StringNullableFilter | String | Null,
+        ?   leadershipStyle?: StringNullableFilter | String | Null,
+        ?   teamSize?: StringNullableFilter | String | Null,
+        ?   achievements?: StringNullableFilter | String | Null,
+        ?   professionalDevelopment?: StringNullableFilter | String | Null,
+        ?   gender?: StringNullableFilter | String | Null,
+        ?   country?: StringNullableFilter | String | Null,
+        ?   city?: StringNullableFilter | String | Null,
+        ?   altEmail?: StringNullableFilter | String | Null,
+        ?   phone?: StringNullableFilter | String | Null,
+        ?   altPhone?: StringNullableFilter | String | Null,
+        ?   highestDegree?: StringNullableFilter | String | Null,
+        ?   citationStyles?: StringNullableFilter | String | Null,
+        ?   languages?: StringNullableFilter | String | Null,
+        ?   disciplines?: StringNullableFilter | String | Null,
+        ?   specialization?: StringNullableFilter | String | Null,
+        ?   additionalSoftware?: StringNullableFilter | String | Null,
+        ?   aboutMe?: StringNullableFilter | String | Null,
+        ?   orders?: OrderListRelationFilter,
+        ?   bids?: BidsListRelationFilter,
+        ?   assignments?: AssignmentListRelationFilter,
+        ?   completedJobs?: CompletedJobsListRelationFilter,
+        ?   cancelledJobs?: CancelledJobsListRelationFilter,
+        ?   invoices?: InvoiceListRelationFilter,
+        ?   payments?: PaymentListRelationFilter,
+        ?   fines?: FinesListRelationFilter,
+        ?   reviews?: ReviewListRelationFilter,
+        ?   reviewed?: ReviewListRelationFilter,
+        ?   notifications?: NotificationListRelationFilter,
+        ?   freelancerApplications?: FreelancerApplicationListRelationFilter
+          },
+          data: {
+            refreshToken: null,
+            refreshTokenExp: null
+          }
+        })
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.	GET	/auth/logout	http://localhost:5173
+20240610	15:02:13	5760a017-2f14-473d-950b-e991497019dd	PrismaClientValidationError: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:148:21
+
+  145 const logOutUser = asyncHandler(async (req, res) => {
+  146   const { userId } = req.body;
+  147 
+→ 148   await prisma.user.update({
+          where: {
+            id: undefined,
+        ?   email?: String,
+        ?   AND?: UserWhereInput | UserWhereInput[],
+        ?   OR?: UserWhereInput[],
+        ?   NOT?: UserWhereInput | UserWhereInput[],
+        ?   fname?: StringFilter | String,
+        ?   lname?: StringFilter | String,
+        ?   password?: StringFilter | String,
+        ?   role?: EnumRoleFilter | Role,
+        ?   profilePic?: StringFilter | String,
+        ?   token?: StringNullableFilter | String | Null,
+        ?   tokenExp?: DateTimeNullableFilter | DateTime | Null,
+        ?   refreshToken?: StringNullableFilter | String | Null,
+        ?   refreshTokenExp?: DateTimeNullableFilter | DateTime | Null,
+        ?   online?: BoolFilter | Boolean,
+        ?   active?: BoolFilter | Boolean,
+        ?   createdAt?: DateTimeFilter | DateTime,
+        ?   updatedAt?: DateTimeFilter | DateTime,
+        ?   experience?: StringNullableFilter | String | Null,
+        ?   leadershipStyle?: StringNullableFilter | String | Null,
+        ?   teamSize?: StringNullableFilter | String | Null,
+        ?   achievements?: StringNullableFilter | String | Null,
+        ?   professionalDevelopment?: StringNullableFilter | String | Null,
+        ?   gender?: StringNullableFilter | String | Null,
+        ?   country?: StringNullableFilter | String | Null,
+        ?   city?: StringNullableFilter | String | Null,
+        ?   altEmail?: StringNullableFilter | String | Null,
+        ?   phone?: StringNullableFilter | String | Null,
+        ?   altPhone?: StringNullableFilter | String | Null,
+        ?   highestDegree?: StringNullableFilter | String | Null,
+        ?   citationStyles?: StringNullableFilter | String | Null,
+        ?   languages?: StringNullableFilter | String | Null,
+        ?   disciplines?: StringNullableFilter | String | Null,
+        ?   specialization?: StringNullableFilter | String | Null,
+        ?   additionalSoftware?: StringNullableFilter | String | Null,
+        ?   aboutMe?: StringNullableFilter | String | Null,
+        ?   orders?: OrderListRelationFilter,
+        ?   bids?: BidsListRelationFilter,
+        ?   assignments?: AssignmentListRelationFilter,
+        ?   completedJobs?: CompletedJobsListRelationFilter,
+        ?   cancelledJobs?: CancelledJobsListRelationFilter,
+        ?   invoices?: InvoiceListRelationFilter,
+        ?   payments?: PaymentListRelationFilter,
+        ?   fines?: FinesListRelationFilter,
+        ?   reviews?: ReviewListRelationFilter,
+        ?   reviewed?: ReviewListRelationFilter,
+        ?   notifications?: NotificationListRelationFilter,
+        ?   freelancerApplications?: FreelancerApplicationListRelationFilter
+          },
+          data: {
+            refreshToken: null,
+            refreshTokenExp: null
+          }
+        })
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.	GET	/auth/logout	http://localhost:5173
+20240610	15:03:16	4cc3318e-291c-4430-93fc-720acbe7e06f	PrismaClientValidationError: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:148:21
+
+  145 const logOutUser = asyncHandler(async (req, res) => {
+  146   const { userId } = req.body;
+  147 
+→ 148   await prisma.user.update({
+          where: {
+            id: undefined,
+        ?   email?: String,
+        ?   AND?: UserWhereInput | UserWhereInput[],
+        ?   OR?: UserWhereInput[],
+        ?   NOT?: UserWhereInput | UserWhereInput[],
+        ?   fname?: StringFilter | String,
+        ?   lname?: StringFilter | String,
+        ?   password?: StringFilter | String,
+        ?   role?: EnumRoleFilter | Role,
+        ?   profilePic?: StringFilter | String,
+        ?   token?: StringNullableFilter | String | Null,
+        ?   tokenExp?: DateTimeNullableFilter | DateTime | Null,
+        ?   refreshToken?: StringNullableFilter | String | Null,
+        ?   refreshTokenExp?: DateTimeNullableFilter | DateTime | Null,
+        ?   online?: BoolFilter | Boolean,
+        ?   active?: BoolFilter | Boolean,
+        ?   createdAt?: DateTimeFilter | DateTime,
+        ?   updatedAt?: DateTimeFilter | DateTime,
+        ?   experience?: StringNullableFilter | String | Null,
+        ?   leadershipStyle?: StringNullableFilter | String | Null,
+        ?   teamSize?: StringNullableFilter | String | Null,
+        ?   achievements?: StringNullableFilter | String | Null,
+        ?   professionalDevelopment?: StringNullableFilter | String | Null,
+        ?   gender?: StringNullableFilter | String | Null,
+        ?   country?: StringNullableFilter | String | Null,
+        ?   city?: StringNullableFilter | String | Null,
+        ?   altEmail?: StringNullableFilter | String | Null,
+        ?   phone?: StringNullableFilter | String | Null,
+        ?   altPhone?: StringNullableFilter | String | Null,
+        ?   highestDegree?: StringNullableFilter | String | Null,
+        ?   citationStyles?: StringNullableFilter | String | Null,
+        ?   languages?: StringNullableFilter | String | Null,
+        ?   disciplines?: StringNullableFilter | String | Null,
+        ?   specialization?: StringNullableFilter | String | Null,
+        ?   additionalSoftware?: StringNullableFilter | String | Null,
+        ?   aboutMe?: StringNullableFilter | String | Null,
+        ?   orders?: OrderListRelationFilter,
+        ?   bids?: BidsListRelationFilter,
+        ?   assignments?: AssignmentListRelationFilter,
+        ?   completedJobs?: CompletedJobsListRelationFilter,
+        ?   cancelledJobs?: CancelledJobsListRelationFilter,
+        ?   invoices?: InvoiceListRelationFilter,
+        ?   payments?: PaymentListRelationFilter,
+        ?   fines?: FinesListRelationFilter,
+        ?   reviews?: ReviewListRelationFilter,
+        ?   reviewed?: ReviewListRelationFilter,
+        ?   notifications?: NotificationListRelationFilter,
+        ?   freelancerApplications?: FreelancerApplicationListRelationFilter
+          },
+          data: {
+            refreshToken: null,
+            refreshTokenExp: null
+          }
+        })
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.	GET	/auth/logout	http://localhost:5173
+20240610	15:08:02	5d5573f4-6c26-423c-b81c-ee6687d1d467	PrismaClientValidationError: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:149:21
+
+  146 const { userId } = req.params;
+  147 
+  148 //delete refresh token
+→ 149 await prisma.user.update({
+        where: {
+          id: undefined,
+      ?   email?: String,
+      ?   AND?: UserWhereInput | UserWhereInput[],
+      ?   OR?: UserWhereInput[],
+      ?   NOT?: UserWhereInput | UserWhereInput[],
+      ?   fname?: StringFilter | String,
+      ?   lname?: StringFilter | String,
+      ?   password?: StringFilter | String,
+      ?   role?: EnumRoleFilter | Role,
+      ?   profilePic?: StringFilter | String,
+      ?   token?: StringNullableFilter | String | Null,
+      ?   tokenExp?: DateTimeNullableFilter | DateTime | Null,
+      ?   refreshToken?: StringNullableFilter | String | Null,
+      ?   refreshTokenExp?: DateTimeNullableFilter | DateTime | Null,
+      ?   online?: BoolFilter | Boolean,
+      ?   active?: BoolFilter | Boolean,
+      ?   createdAt?: DateTimeFilter | DateTime,
+      ?   updatedAt?: DateTimeFilter | DateTime,
+      ?   experience?: StringNullableFilter | String | Null,
+      ?   leadershipStyle?: StringNullableFilter | String | Null,
+      ?   teamSize?: StringNullableFilter | String | Null,
+      ?   achievements?: StringNullableFilter | String | Null,
+      ?   professionalDevelopment?: StringNullableFilter | String | Null,
+      ?   gender?: StringNullableFilter | String | Null,
+      ?   country?: StringNullableFilter | String | Null,
+      ?   city?: StringNullableFilter | String | Null,
+      ?   altEmail?: StringNullableFilter | String | Null,
+      ?   phone?: StringNullableFilter | String | Null,
+      ?   altPhone?: StringNullableFilter | String | Null,
+      ?   highestDegree?: StringNullableFilter | String | Null,
+      ?   citationStyles?: StringNullableFilter | String | Null,
+      ?   languages?: StringNullableFilter | String | Null,
+      ?   disciplines?: StringNullableFilter | String | Null,
+      ?   specialization?: StringNullableFilter | String | Null,
+      ?   additionalSoftware?: StringNullableFilter | String | Null,
+      ?   aboutMe?: StringNullableFilter | String | Null,
+      ?   orders?: OrderListRelationFilter,
+      ?   bids?: BidsListRelationFilter,
+      ?   assignments?: AssignmentListRelationFilter,
+      ?   completedJobs?: CompletedJobsListRelationFilter,
+      ?   cancelledJobs?: CancelledJobsListRelationFilter,
+      ?   invoices?: InvoiceListRelationFilter,
+      ?   payments?: PaymentListRelationFilter,
+      ?   fines?: FinesListRelationFilter,
+      ?   reviews?: ReviewListRelationFilter,
+      ?   reviewed?: ReviewListRelationFilter,
+      ?   notifications?: NotificationListRelationFilter,
+      ?   freelancerApplications?: FreelancerApplicationListRelationFilter
+        },
+        data: {
+          refreshToken: null,
+          refreshTokenExp: null
+        }
+      })
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.	GET	/auth/logout	http://localhost:5173
+20240611	11:57:11	96458468-8522-43e9-bd14-93df51a3aedd	PrismaClientValidationError: 
+Invalid `tx.cancelledJobs.create()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\CancelledJobs.js:28:28
+
+  25   data: { status: 'CANCELLED' },
+  26 });
+  27 
+→ 28 await tx.cancelledJobs.create({
+       data: {
+         orderId: "58cc1666-4433-440f-b3d9-8fc9a08938f4",
+         freelancerId: null,
+         status: "CANCELLED",
+     +   attachments: String
+       }
+     })
+
+Argument `attachments` is missing.	POST	/orders/cancel	undefined
+20240611	11:59:06	5a430f8d-db26-4b36-9573-7d427d164a8f	PrismaClientValidationError: 
+Invalid `tx.cancelledJobs.create()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\CancelledJobs.js:28:28
+
+  25   data: { status: 'CANCELLED' },
+  26 });
+  27 
+→ 28 await tx.cancelledJobs.create({
+       data: {
+         orderId: "58cc1666-4433-440f-b3d9-8fc9a08938f4",
+         freelancerId: null,
+         status: "CANCELLED",
+         attachments: null,
+     +   order: {
+     +     create: OrderCreateWithoutCancelledJobsInput | OrderUncheckedCreateWithoutCancelledJobsInput,
+     +     connectOrCreate: OrderCreateOrConnectWithoutCancelledJobsInput,
+     +     connect: OrderWhereUniqueInput
+     +   }
+       }
+     })
+
+Argument `order` is missing.	POST	/orders/cancel	undefined
+20240611	11:59:45	a6042165-62bd-40a9-b5bf-2603e5f6951c	PrismaClientValidationError: 
+Invalid `tx.cancelledJobs.create()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\CancelledJobs.js:28:28
+
+  25   data: { status: 'CANCELLED' },
+  26 });
+  27 
+→ 28 await tx.cancelledJobs.create({
+       data: {
+         orderId: "58cc1666-4433-440f-b3d9-8fc9a08938f4",
+         freelancerId: null,
+         status: "CANCELLED",
+         attachments: null,
+     +   order: {
+     +     create: OrderCreateWithoutCancelledJobsInput | OrderUncheckedCreateWithoutCancelledJobsInput,
+     +     connectOrCreate: OrderCreateOrConnectWithoutCancelledJobsInput,
+     +     connect: OrderWhereUniqueInput
+     +   }
+       }
+     })
+
+Argument `order` is missing.	POST	/orders/cancel	undefined
+20240611	12:01:20	517e8918-7e32-4c7a-baab-7fe736b31b7c	PrismaClientValidationError: 
+Invalid `tx.cancelledJobs.create()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\CancelledJobs.js:28:28
+
+  25   data: { status: 'CANCELLED' },
+  26 });
+  27 
+→ 28 await tx.cancelledJobs.create({
+       data: {
+         order: {
+           connect: {
+             id: "58cc1666-4433-440f-b3d9-8fc9a08938f4"
+           }
+         },
+         freelancerId: null,
+         status: "CANCELLED",
+         attachments: null,
+     +   freelancer: {
+     +     create: UserCreateWithoutCancelledJobsInput | UserUncheckedCreateWithoutCancelledJobsInput,
+     +     connectOrCreate: UserCreateOrConnectWithoutCancelledJobsInput,
+     +     connect: UserWhereUniqueInput
+     +   }
+       }
+     })
+
+Argument `freelancer` is missing.	POST	/orders/cancel	undefined
+20240611	12:02:56	bfd4d6e0-5b3f-4013-960f-700f3dccdcc1	PrismaClientValidationError: 
+Invalid `tx.cancelledJobs.create()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\CancelledJobs.js:28:28
+
+  25   data: { status: 'CANCELLED' },
+  26 });
+  27 
+→ 28 await tx.cancelledJobs.create({
+       data: {
+         order: {
+           connect: {
+             id: "58cc1666-4433-440f-b3d9-8fc9a08938f4"
+           }
+         },
+         freelancerId: null,
+         status: "CANCELLED",
+         attachments: null,
+     +   freelancer: {
+     +     create: UserCreateWithoutCancelledJobsInput | UserUncheckedCreateWithoutCancelledJobsInput,
+     +     connectOrCreate: UserCreateOrConnectWithoutCancelledJobsInput,
+     +     connect: UserWhereUniqueInput
+     +   }
+       }
+     })
+
+Argument `freelancer` is missing.	POST	/orders/cancel	undefined
+20240611	12:04:35	e3ca64f3-143b-4e52-94bb-392bab8ae510	PrismaClientValidationError: 
+Invalid `tx.cancelledJobs.create()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\CancelledJobs.js:28:28
+
+  25   data: { status: 'CANCELLED' },
+  26 });
+  27 
+→ 28 await tx.cancelledJobs.create({
+       data: {
+         order: {
+           connect: {
+             id: "58cc1666-4433-440f-b3d9-8fc9a08938f4"
+           }
+         },
+         freelancer: {
+           connect: {
+     +       id: String
+           }
+         },
+         status: "CANCELLED",
+         attachments: null
+       }
+     })
+
+Argument `id` must not be null.	POST	/orders/cancel	undefined
+20240611	12:05:05	f0f4ef7d-b7cb-4a17-8258-13ff478e68fa	PrismaClientValidationError: 
+Invalid `tx.cancelledJobs.create()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\CancelledJobs.js:28:28
+
+  25   data: { status: 'CANCELLED' },
+  26 });
+  27 
+→ 28 await tx.cancelledJobs.create({
+       data: {
+         order: {
+           connect: {
+             id: "58cc1666-4433-440f-b3d9-8fc9a08938f4"
+           }
+         },
+         freelancer: {
+           connect: {
+     +       id: String
+           }
+         },
+         status: "CANCELLED",
+         attachments: null
+       }
+     })
+
+Argument `id` must not be null.	POST	/orders/cancel	undefined
+20240611	12:54:19	e1739aad-0fff-4b50-a732-db0439ae75ec	PrismaClientInitializationError: 
+Invalid `prisma.order.findUnique()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\CancelledJobs.js:9:36
+
+  6 const cancelOrder = asyncHandler(async (req, res) => {
+  7   const { orderId } = req.body;
+  8 
+→ 9   const order = await prisma.order.findUnique(
+Can't reach database server at `roundhouse.proxy.rlwy.net:54383`
+
+Please make sure your database server is running at `roundhouse.proxy.rlwy.net:54383`.	POST	/orders/cancel	undefined
+20240611	12:54:58	55acb510-fc0c-4b5b-bff5-4a17e2e8573d	PrismaClientValidationError: 
+Invalid `tx.cancelledJobs.create()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\CancelledJobs.js:28:28
+
+  25   data: { status: 'CANCELLED' },
+  26 });
+  27 
+→ 28 await tx.cancelledJobs.create({
+       data: {
+         order: {
+           connect: {
+             id: "58cc1666-4433-440f-b3d9-8fc9a08938f4"
+           }
+         },
+         freelancer: {
+           connect: {
+     +       id: String
+           }
+         },
+         status: "CANCELLED",
+         attachments: null
+       }
+     })
+
+Argument `id` must not be null.	POST	/orders/cancel	undefined
+20240611	13:04:40	08c6f905-76b1-4970-9be1-847c25b9a6b6	PrismaClientValidationError: 
+Invalid `prisma.order.findUnique()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\CancelledJobs.js:61:36
+
+  58 const changeStatus = asyncHandler(async (req, res) => {
+  59   const { orderId, status } = req.body;     
+  60 
+→ 61   const order = await prisma.order.findUnique({
+         where: {
+           id: "58cc1666-4433-440f-b3d9-8fc9a08938f4"
+         },
+         include: {
+           user: true,
+           ~~~~
+       ?   freelancer?: true,
+       ?   bids?: true,
+       ?   assignments?: true,
+       ?   completedJobs?: true,
+       ?   cancelledJobs?: true,
+       ?   fines?: true,
+       ?   reviews?: true,
+       ?   invoice?: true,
+       ?   notifications?: true
+         }
+       })
+
+Unknown field `user` for include statement on model `Order`. Available options are marked with ?.	PATCH	/orders/changestatus	undefined
+20240611	13:38:36	ed459fa9-e00f-408f-b912-07f1d802b495	ReferenceError: status is not defined	PATCH	/orders/changestatus	undefined
+20240611	13:38:43	786aae88-86cf-4c34-8f20-c49aed9b35aa	SyntaxError: Expected double-quoted property name in JSON at position 55 (line 4 column 1)	PATCH	/orders/changestatus	undefined
+20240611	13:38:48	b3ef51e0-3a5b-4194-87c8-01e06979ce0c	ReferenceError: status is not defined	PATCH	/orders/changestatus	undefined
+20240611	17:16:46	6f32b641-e440-4338-a59c-556922e63c64	SyntaxError: Unexpected token '"', ""b9ac60a5-"... is not valid JSON	POST	/bids/create/58cc1666-4433-440f-b3d9-8fc9a08938f4	http://localhost:5173
+20240611	17:16:54	8eae4eea-1f8e-43b9-9e0e-6d78af31e4f5	SyntaxError: Unexpected token '"', ""b9ac60a5-"... is not valid JSON	POST	/bids/create/58cc1666-4433-440f-b3d9-8fc9a08938f4	http://localhost:5173
+20240611	17:17:20	b2b71b40-ce7f-479f-ac75-9eaacb139e92	SyntaxError: Unexpected token '"', ""b9ac60a5-"... is not valid JSON	POST	/bids/create/58cc1666-4433-440f-b3d9-8fc9a08938f4	http://localhost:5173
+20240611	17:18:01	1e549acd-050c-4528-9b54-de23aa25efad	SyntaxError: Unexpected token '"', ""b9ac60a5-"... is not valid JSON	POST	/bids/create/58cc1666-4433-440f-b3d9-8fc9a08938f4	http://localhost:5173
+20240611	18:12:15	063d9824-f241-49dd-a9fd-88bb5ba31cbd	ReferenceError: jwt is not defined	GET	/orders/list	http://localhost:5173
+20240611	18:12:15	d635facd-6273-4791-9cd7-adaadba0e375	ReferenceError: jwt is not defined	GET	/orders/list	http://localhost:5173
+20240611	18:13:09	bd0df1cc-5376-4726-a58a-36808a8f4a26	ReferenceError: jwt is not defined	GET	/orders/list	http://localhost:5173
+20240611	18:13:09	228ecf28-8277-4e08-a802-edc5e47f4521	ReferenceError: jwt is not defined	GET	/orders/list	http://localhost:5173
+20240611	18:14:22	d5e35c11-69e7-49b4-ada2-adac558546fd	ReferenceError: jwt is not defined	GET	/orders/list	http://localhost:5173
+20240611	18:14:22	16dec978-37b7-49ee-b4ec-4d3affda9af7	ReferenceError: jwt is not defined	GET	/orders/list	http://localhost:5173
+20240611	18:14:31	123d499e-a939-4a69-b20a-01401f94bd7f	ReferenceError: jwt is not defined	GET	/orders/list	http://localhost:5173
+20240611	18:14:31	6656ee3b-ba5e-4f7b-bd53-2b70d74ffbf3	ReferenceError: jwt is not defined	GET	/orders/list	http://localhost:5173
+20240611	18:18:28	d35c403b-1a92-421b-969f-c91d6945b056	PrismaClientInitializationError: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:154:21
+
+  151 }
+  152 
+  153 // Delete refresh token
+→ 154 await prisma.user.update(
+Can't reach database server at `roundhouse.proxy.rlwy.net:54383`
+
+Please make sure your database server is running at `roundhouse.proxy.rlwy.net:54383`.	POST	/auth/logout	http://localhost:5173
+20240611	23:33:38	c3410fd3-6995-4ebb-b39b-51b28e785763	PrismaClientKnownRequestError: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:154:21
+
+  151 }
+  152 
+  153 // Delete refresh token
+→ 154 await prisma.user.update(
+Can't reach database server at `roundhouse.proxy.rlwy.net:54383`
+
+Please make sure your database server is running at `roundhouse.proxy.rlwy.net:54383`.	POST	/auth/logout	http://localhost:5173
+20240612	01:21:46	3153cb4c-dd68-4a0c-ad82-28a7cb7a5995	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:21:52	543d9372-60c5-4f1f-9d8b-555fc14d5265	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:30:17	4f40f445-948b-4bb6-9f95-5b020c8805d5	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:32:09	153a0120-fd27-4f9d-94ea-894a8eca3c41	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:32:12	c26342bc-210e-4fa1-97fb-f404dc7bd344	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:33:32	7ab5c3a7-3644-4e38-b05c-5f767d2bbfd2	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:34:09	1c161a31-3869-40f0-a0bd-a135d7c6688e	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:34:09	5c852158-9036-4241-a803-4cef14a11337	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:36:23	39c662c7-1cf1-4334-be6e-10fc6a814759	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:37:03	348d8fe5-0c37-441e-94d1-d17bffdc7035	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:37:14	035c2090-30f4-4d1f-9f56-6bfc483b96e8	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:37:15	fdc3472b-c723-4f87-b348-77390c7d1254	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:37:42	6c598438-bc54-4c21-ad49-95d74e28e08a	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:40:45	f3ef9d58-e5aa-44c1-a235-9430896a153f	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:42:41	f6d2cd57-70a4-43a0-9688-392aebd7e9f0	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:43:47	332a424f-d164-46e3-a43f-f916cc1c5b95	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:43:49	fe4a6800-1ffa-450f-a53f-9335a14a6f88	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:44:00	cb07c5df-426b-40f6-b3af-81fe4ac7d9b8	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:44:12	8c3ba672-e3bb-4d8e-917e-3c91e2d8fe32	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:44:12	13f353ac-759b-4d99-a30e-0d9ac3b36733	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:45:51	08013c96-b7fe-47c8-a820-31bc0269586c	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:46:05	e06cd21f-5713-4b73-a906-068ac634599e	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:46:18	9e124967-c4fe-4b7e-bcfb-de7604eb9ee5	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:46:19	130dfeeb-88d3-4469-9f66-b40579a3e3a8	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:46:47	3bc6bcd1-ba5c-4a84-bbb0-07b80877d35b	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:47:28	5ccae327-1ba5-494f-9d6d-b2f3c7492152	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:47:32	059f7566-61db-41eb-925a-2e0b27d31626	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:48:05	c7eb7872-a814-4e31-8de6-ce72a1408538	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:48:12	44d39d7a-589f-4325-af59-58bd82dd1fb2	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:48:20	bc7a688c-eed4-4c66-8fa7-08ec4aa7dbce	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:48:45	da4e6677-80d4-49de-b3f5-a44e2d13eb0f	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:48:51	c4e92243-5d5a-4e16-9c70-5e2d436138e8	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:49:03	dea66eaf-75c0-4103-8ebf-1248be4ba714	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:50:45	4bfa8d13-56b9-42e0-836a-b5179de9500e	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:51:50	c69ac945-c4c3-438f-a386-ec31fcf0defa	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:52:10	85e8eb3f-85a8-482c-9da5-532dae53b592	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:53:06	ce77cffd-5d61-4372-b508-3a92d912040b	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:54:22	101945cf-9237-4e14-8ab0-557c987e045e	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:54:39	4cc56ca6-550d-46d4-b244-e506ba5b56e6	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:55:07	e5aa7981-9056-4467-83af-5f5a369b05cc	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:55:14	159c219c-4983-4db9-8fa2-966af8d447af	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:56:14	c3785566-58a7-440d-909f-801d60d4938b	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:56:15	bfe5fc4c-effd-487e-a6d0-134d14c2d877	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:57:16	c07d7b6d-64b2-437a-862e-8cdfd7a8cc67	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:57:25	7d444e63-4070-4cf7-bae2-0dfcb96b877d	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:57:37	2ea385ce-d774-43c9-a2a9-5d715af96fa1	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:58:24	89eb044d-01ad-4fee-bd4a-c894f2085c39	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:59:14	34aabf6d-59aa-4333-96ff-3ed45e1afa2a	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	01:59:27	8483d2b3-9b9b-4d9a-b68e-4ecccd83d5bb	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	02:00:31	f0ea1e96-9628-462c-83c3-f03f19b0f349	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/015880c0-dc61-4116-a534-885c00b0f061	http://localhost:5173
+20240612	02:00:32	b236234c-b036-4573-8f14-51e7678657d5	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/015880c0-dc61-4116-a534-885c00b0f061	http://localhost:5173
+20240612	02:01:31	693cc7b3-d3a6-4d37-90ff-7dc53940df84	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/015880c0-dc61-4116-a534-885c00b0f061	http://localhost:5173
+20240612	02:02:42	e6fede40-90a0-4b8f-a165-3d7e3ab66bbc	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/015880c0-dc61-4116-a534-885c00b0f061	http://localhost:5173
+20240612	02:02:43	4270e258-aafe-428c-a475-ca834b08f5a8	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/015880c0-dc61-4116-a534-885c00b0f061	http://localhost:5173
+20240612	02:03:20	9b039b6e-54dd-4969-95d4-5ee397c9348c	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	02:03:21	7c059fd6-f026-4b99-82df-5c90443657f3	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	02:18:34	2ce6785a-ffb3-48ee-8ceb-a26e86d65602	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	02:18:36	9f5f0730-a785-49d9-9a0c-065db8730b76	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	02:23:23	9218fd28-0c6a-487a-9a2b-b9513cf42ba5	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/015880c0-dc61-4116-a534-885c00b0f061	http://localhost:5173
+20240612	02:23:23	986c1aea-9202-4274-b323-251c0fefa3a5	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/015880c0-dc61-4116-a534-885c00b0f061	http://localhost:5173
+20240612	02:30:25	c5865cd1-f420-48ba-b528-c8c1899d2927	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	02:30:25	0f184977-1a2a-4a84-a8a7-5ef0f34f67f0	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	02:31:28	89677a40-6fd0-4b7a-92b4-fd091a2767b7	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	02:31:28	d332ace0-9923-4637-bb69-8e3549652f82	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	02:31:45	946b350c-7374-420e-93a3-dc1e60dbd768	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	02:31:53	147c7218-7971-4672-a862-d054fd2f9d4b	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	02:31:54	849fcb13-d52c-4f6d-b4f2-fde8ffa06e26	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	02:32:19	d23fc74c-b3cb-4f26-aeb0-bdb50c3e7c1d	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	02:32:19	aa7ccada-f467-4008-b7d0-efb864e17b60	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	02:36:24	e9efed30-24f2-4a33-b8be-6723364586b7	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	02:36:26	3cf2104d-18f9-4992-a0dc-2e538653eb7a	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/b9ac60a5-67bd-4a71-a2fc-7f6165f1958d	http://localhost:5173
+20240612	02:37:02	c7acb0eb-b161-418c-a3f9-474a4b024b34	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/015880c0-dc61-4116-a534-885c00b0f061	http://localhost:5173
+20240612	02:37:04	54e08f89-ec80-469e-bb4d-c1e8e3a0aa2e	Error: Cannot set headers after they are sent to the client	GET	/bids/freelancer/015880c0-dc61-4116-a534-885c00b0f061	http://localhost:5173
+20240612	12:34:57	8bbab9d6-5993-48bf-8f49-e589f9c0ed4a	PrismaClientInitializationError: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:154:21
+
+  151 }
+  152 
+  153 // Delete refresh token
+→ 154 await prisma.user.update(
+Can't reach database server at `roundhouse.proxy.rlwy.net:54383`
+
+Please make sure your database server is running at `roundhouse.proxy.rlwy.net:54383`.	POST	/auth/logout	http://localhost:5173
+20240613	16:40:24	78d9d7af-5bf7-4bd9-9e38-5abecb026b4a	PrismaClientInitializationError: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:154:21
+
+  151 }
+  152 
+  153 // Delete refresh token
+→ 154 await prisma.user.update(
+Can't reach database server at `roundhouse.proxy.rlwy.net:54383`
+
+Please make sure your database server is running at `roundhouse.proxy.rlwy.net:54383`.	POST	/auth/logout	http://localhost:5173
+20240614	10:04:03	b4b4a573-8626-4139-ba73-501968f6336b	PrismaClientInitializationError: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:154:21
+
+  151 }
+  152 
+  153 // Delete refresh token
+→ 154 await prisma.user.update(
+Can't reach database server at `roundhouse.proxy.rlwy.net:54383`
+
+Please make sure your database server is running at `roundhouse.proxy.rlwy.net:54383`.	POST	/auth/logout	http://localhost:5173
+20240617	13:18:54	e61089a4-6fd6-49de-84eb-a79c3b3199aa	Error: Multipart: Boundary not found	POST	/uploads/submissionUploads	http://localhost:5173
+20240617	16:05:33	3429ed64-2e45-47e7-8fd4-e0f42c39a734	Error: Please upload valid file types: jpeg, jpg, png, pdf, doc, docx, xlsx, xls, ppt, pptx	POST	/uploads/submissionUploads	http://localhost:5173
+20240618	15:34:32	93417ab7-bf8c-45d1-8be4-e94f8f6e2531	PrismaClientKnownRequestError: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:154:21
+
+  151 }
+  152 
+  153 // Delete refresh token
+→ 154 await prisma.user.update(
+Can't reach database server at `roundhouse.proxy.rlwy.net:54383`
+
+Please make sure your database server is running at `roundhouse.proxy.rlwy.net:54383`.	POST	/auth/logout	http://localhost:5173
+20240618	17:01:11	a76948c7-0cf6-4b5b-92a4-e2fc3bd0bcec	PrismaClientKnownRequestError: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:154:21
+
+  151 }
+  152 
+  153 // Delete refresh token
+→ 154 await prisma.user.update(
+Can't reach database server at `roundhouse.proxy.rlwy.net:54383`
+
+Please make sure your database server is running at `roundhouse.proxy.rlwy.net:54383`.	POST	/auth/logout	http://localhost:5173
+20240624	16:13:43	c3b8ea01-d8ba-4754-84cc-f492e3e30f94	PrismaClientInitializationError: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:154:21
+
+  151 }
+  152 
+  153 // Delete refresh token
+→ 154 await prisma.user.update(
+Can't reach database server at `roundhouse.proxy.rlwy.net:54383`
+
+Please make sure your database server is running at `roundhouse.proxy.rlwy.net:54383`.	POST	/auth/logout	http://localhost:5173
+20240627	23:35:46	36e99a73-651e-4504-8a5a-61912186b5b8	PrismaClientValidationError: 
+Invalid `prisma.submittedJobs.findUnique()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\finesController.js:20:50
+
+  17 }
+  18 
+  19 // Check if order is submitted
+→ 20 const isSubmitted = await prisma.submittedJobs.findUnique({
+       where: {
+         orderId: "f976e6b8-cf71-48c2-acbd-7d47ade43735",
+     ?   id?: String,
+     ?   AND?: SubmittedJobsWhereInput | SubmittedJobsWhereInput[],
+     ?   OR?: SubmittedJobsWhereInput[],
+     ?   NOT?: SubmittedJobsWhereInput | SubmittedJobsWhereInput[],
+     ?   freelancerId?: StringFilter | String,
+     ?   file_Path?: StringFilter | String,
+     ?   file_mimeType?: StringFilter | String,
+     ?   createdAt?: DateTimeFilter | DateTime,
+     ?   updatedAt?: DateTimeFilter | DateTime,
+     ?   status?: EnumOrderStatusFilter | OrderStatus,
+     ?   order?: OrderRelationFilter | OrderWhereInput,
+     ?   freelancer?: UserRelationFilter | UserWhereInput
+       }
+     })
+
+Argument `where` of type SubmittedJobsWhereUniqueInput needs at least one of `id` arguments. Available options are marked with ?.	POST	/fines/create	undefined
+20240628	11:00:42	45baea2b-0b34-44c6-967c-9beb8291dc8c	PrismaClientInitializationError: 
+Invalid `prisma.submittedJobs.findUnique()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\finesController.js:20:50
+
+  17 //   }
+  18 
+  19   // Check if order is submitted
+→ 20   const isSubmitted = await prisma.submittedJobs.findUnique(
+Can't reach database server at `roundhouse.proxy.rlwy.net:54383`
+
+Please make sure your database server is running at `roundhouse.proxy.rlwy.net:54383`.	POST	/fines/create	undefined
+20240628	11:07:35	b542937a-eef5-4570-a3c1-2b822315b601	PrismaClientValidationError: 
+Invalid `prisma.submittedJobs.findUnique()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\finesController.js:20:52
+
+  17 }
+  18   
+  19 // Check if order is submitted
+→ 20 const isSubmitted = await prisma.submittedJobs.findUnique({
+       where: {
+         orderId: "f976e6b8-cf71-48c2-acbd-7d47ade43735",
+     ?   id?: String,
+     ?   AND?: SubmittedJobsWhereInput | SubmittedJobsWhereInput[],
+     ?   OR?: SubmittedJobsWhereInput[],
+     ?   NOT?: SubmittedJobsWhereInput | SubmittedJobsWhereInput[],
+     ?   freelancerId?: StringFilter | String,
+     ?   file_Path?: StringFilter | String,
+     ?   file_mimeType?: StringFilter | String,
+     ?   createdAt?: DateTimeFilter | DateTime,
+     ?   updatedAt?: DateTimeFilter | DateTime,
+     ?   status?: EnumOrderStatusFilter | OrderStatus,
+     ?   order?: OrderRelationFilter | OrderWhereInput,
+     ?   freelancer?: UserRelationFilter | UserWhereInput
+       }
+     })
+
+Argument `where` of type SubmittedJobsWhereUniqueInput needs at least one of `id` arguments. Available options are marked with ?.	POST	/fines/create	undefined
+20240628	11:08:15	1623a0a5-bd98-444b-aa0f-dd83b6464ad0	PrismaClientValidationError: 
+Invalid `prisma.submittedJobs.findUnique()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\finesController.js:20:52
+
+  17 }
+  18   
+  19 // Check if order is submitted
+→ 20 const isSubmitted = await prisma.submittedJobs.findUnique({
+       where: {
+         orderId: "f976e6b8-cf71-48c2-acbd-7d47ade43735",
+     ?   id?: String,
+     ?   AND?: SubmittedJobsWhereInput | SubmittedJobsWhereInput[],
+     ?   OR?: SubmittedJobsWhereInput[],
+     ?   NOT?: SubmittedJobsWhereInput | SubmittedJobsWhereInput[],
+     ?   freelancerId?: StringFilter | String,
+     ?   file_Path?: StringFilter | String,
+     ?   file_mimeType?: StringFilter | String,
+     ?   createdAt?: DateTimeFilter | DateTime,
+     ?   updatedAt?: DateTimeFilter | DateTime,
+     ?   status?: EnumOrderStatusFilter | OrderStatus,
+     ?   order?: OrderRelationFilter | OrderWhereInput,
+     ?   freelancer?: UserRelationFilter | UserWhereInput
+       }
+     })
+
+Argument `where` of type SubmittedJobsWhereUniqueInput needs at least one of `id` arguments. Available options are marked with ?.	POST	/fines/create	undefined
+20240629	09:50:49	f0ea24bc-fe80-423b-a8d3-421ac5dcea47	PrismaClientKnownRequestError: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:154:21
+
+  151 }
+  152 
+  153 // Delete refresh token
+→ 154 await prisma.user.update(
+Can't reach database server at `roundhouse.proxy.rlwy.net:54383`
+
+Please make sure your database server is running at `roundhouse.proxy.rlwy.net:54383`.	POST	/auth/logout	http://localhost:5173
+20240629	21:25:20	d4c9212c-7fcc-412e-b3e0-48ddc39e33a1	PrismaClientKnownRequestError: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:154:21
+
+  151 }
+  152 
+  153 // Delete refresh token
+→ 154 await prisma.user.update(
+Can't reach database server at `roundhouse.proxy.rlwy.net:54383`
+
+Please make sure your database server is running at `roundhouse.proxy.rlwy.net:54383`.	POST	/auth/logout	http://localhost:5173
+20240630	14:41:25	69fea962-f1d2-4070-9b10-028c9392de62	PrismaClientKnownRequestError: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:154:21
+
+  151 }
+  152 
+  153 // Delete refresh token
+→ 154 await prisma.user.update(
+An operation failed because it depends on one or more records that were required but not found. Record to update not found.	POST	/auth/logout	http://localhost:5173
+20240630	20:14:00	bae92c22-1b52-4d7c-95ad-5068f99015ba	PrismaClientInitializationError: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:154:21
+
+  151 }
+  152 
+  153 // Delete refresh token
+→ 154 await prisma.user.update(
+Can't reach database server at `roundhouse.proxy.rlwy.net:54383`
+
+Please make sure your database server is running at `roundhouse.proxy.rlwy.net:54383`.	POST	/auth/logout	http://localhost:5173
+20240702	21:33:37	4328d8e7-906a-4ce2-97af-ccf6becb51a4	PrismaClientInitializationError: 
+Invalid `prisma.user.findMany()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\userContoller.js:8:43
+
+  5 
+  6 // Fetch freelancers
+  7 const getFreelancers = asyncHandler(async (req, res) => {
+→ 8     const freelancers = await prisma.user.findMany(
+Can't reach database server at `roundhouse.proxy.rlwy.net:54383`
+
+Please make sure your database server is running at `roundhouse.proxy.rlwy.net:54383`.	GET	/users/freelancers	undefined
+20240703	16:20:49	3e44d440-c56e-4ed8-80e7-51051294e677	PrismaClientKnownRequestError: 
+Invalid `prisma.user.findMany()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\userContoller.js:8:43
+
+  5 
+  6 // Fetch freelancers
+  7 const getFreelancers = asyncHandler(async (req, res) => {
+→ 8     const freelancers = await prisma.user.findMany(
+Can't reach database server at `roundhouse.proxy.rlwy.net:54383`
+
+Please make sure your database server is running at `roundhouse.proxy.rlwy.net:54383`.	GET	/users/freelancers	http://localhost:5173
+20240703	23:06:52	f5ea1481-a7b1-49e5-a1c3-4ab51f94c67b	PrismaClientValidationError: 
+Invalid `prisma.user.findUnique()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\userContoller.js:54:42
+
+  51 // Fetch freelancer details
+  52 const getFreelancerDetails = asyncHandler(async (req, res) => {
+  53     const { id } = req.params;
+→ 54     const freelancer = await prisma.user.findUnique({
+           where: {
+             id: "5e6d7b17-0b2e-4c1b-b5da-882e6a351185"
+           },
+           select: {
+           ~~~~~~
+             id: true,
+             fname: true,
+             lname: true,
+             email: true,
+             profilePic: true,
+             role: true,
+             active: true,
+             online: true,
+             country: true,
+             city: true,
+             disciplines: true,
+             languages: true,
+             specialization: true,
+             SubmittedJobs: true,
+             reviews: true,
+             payments: true
+           },
+           include: {
+           ~~~~~~~
+             SubmittedJobs: true,
+             reviews: {
+               include: {
+                 reviewer: {
+                   select: {
+                     fname: true,
+                     lname: true
+                   }
+                 }
+               }
+             },
+             payments: true
+           }
+         })
+
+Please either use `include` or `select`, but not both at the same time.	GET	/users/freelancers/5e6d7b17-0b2e-4c1b-b5da-882e6a351185	http://localhost:5173
+20240703	23:06:52	b68e8488-eaad-4abf-a7f4-106cfdf7b057	PrismaClientValidationError: 
+Invalid `prisma.user.findUnique()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\userContoller.js:54:42
+
+  51 // Fetch freelancer details
+  52 const getFreelancerDetails = asyncHandler(async (req, res) => {
+  53     const { id } = req.params;
+→ 54     const freelancer = await prisma.user.findUnique({
+           where: {
+             id: "5e6d7b17-0b2e-4c1b-b5da-882e6a351185"
+           },
+           select: {
+           ~~~~~~
+             id: true,
+             fname: true,
+             lname: true,
+             email: true,
+             profilePic: true,
+             role: true,
+             active: true,
+             online: true,
+             country: true,
+             city: true,
+             disciplines: true,
+             languages: true,
+             specialization: true,
+             SubmittedJobs: true,
+             reviews: true,
+             payments: true
+           },
+           include: {
+           ~~~~~~~
+             SubmittedJobs: true,
+             reviews: {
+               include: {
+                 reviewer: {
+                   select: {
+                     fname: true,
+                     lname: true
+                   }
+                 }
+               }
+             },
+             payments: true
+           }
+         })
+
+Please either use `include` or `select`, but not both at the same time.	GET	/users/freelancers/5e6d7b17-0b2e-4c1b-b5da-882e6a351185	http://localhost:5173
+20240704	15:23:25	3afae894-75e6-4a03-ab10-b730f44a476b	PrismaClientValidationError: 
+Invalid `prisma.user.findMany()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\userContoller.js:150:53
+
+  147     res.json(managers);
+  148 });
+  149 const getUnapprovedFreelancers = asyncHandler(async (req, res) => {
+→ 150     const unapprovedFreelancers = await prisma.user.findMany({
+            where: {
+              role: "FREELANCER",
+              OR: [
+                {
+                  freelancerApplications: {
+                    some: {
+                      status: {
+                        in: [
+                          "PENDING",
+                          "DECLINED"
+                        ]
+                      }
+                    }
+                  }
+                },
+                {
+                  NOT: {
+                    freelancerApplications: {
+                      some: {
+                        status: {
+                          in: [
+                            "APPROVED",
+                            "DECLINED"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            select: {
+              id: true,
+              fname: true,
+              lname: true,
+              email: true,
+              profilePic: true,
+              role: true,
+              active: true,
+              online: true,
+              country: true,
+              city: true,
+              disciplines: true,
+              languages: true,
+              specialization: true,
+              freelancerApplications: {
+                where: {
+                  OR: [
+                    {
+                      status: {
+                        in: [
+                          "PENDING",
+                          "DECLINED"
+                        ]
+                      }
+                    },
+                    {
+                      status: null
+                    }
+                  ]
+                },
+                select: {
+                  id: true,
+                  status: true,
+                  createdAt: true
+                }
+              }
+            }
+          })
+
+Argument `status` is missing.	GET	/users/unapproved	undefined
+20240704	15:25:14	052731e9-2f66-4e6e-b01c-5e7234e35069	PrismaClientValidationError: 
+Invalid `prisma.user.findMany()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\userContoller.js:150:53
+
+  147     res.json(managers);
+  148 });
+  149 const getUnapprovedFreelancers = asyncHandler(async (req, res) => {
+→ 150     const unapprovedFreelancers = await prisma.user.findMany({
+            where: {
+              role: "FREELANCER",
+              OR: [
+                {
+                  freelancerApplications: {
+                    some: {
+                      status: {
+                        in: [
+                          "PENDING",
+                          "DECLINED"
+                        ]
+                      }
+                    }
+                  }
+                },
+                {
+                  NOT: {
+                    freelancerApplications: {
+                      some: {
+                        OR: [
+                          {
+                            status: {
+                              in: [
+                                "APPROVED",
+                                "DECLINED"
+                              ]
+                            }
+                          },
+                          {
+                            status: null
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            select: {
+              id: true,
+              fname: true,
+              lname: true,
+              email: true,
+              profilePic: true,
+              role: true,
+              active: true,
+              online: true,
+              country: true,
+              city: true,
+              disciplines: true,
+              languages: true,
+              specialization: true,
+              freelancerApplications: {
+                where: {
+                  OR: [
+                    {
+                      status: {
+                        in: [
+                          "PENDING",
+                          "DECLINED"
+                        ]
+                      }
+                    },
+                    {
+                      status: null
+                    }
+                  ]
+                },
+                select: {
+                  id: true,
+                  status: true,
+                  createdAt: true
+                }
+              }
+            }
+          })
+
+Argument `status` is missing.	GET	/users/unapproved	undefined
