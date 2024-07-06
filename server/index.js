@@ -6,7 +6,11 @@ const errorHandler=require('./middleware/errorHandler');
 const cookieParser=require('cookie-parser');
 const cors=require('cors');
 const corsOptions=require('./config/corsOptions');
-const port=process.env.PORT || 5000;
+const { PrismaClient } = require("@prisma/client");
+
+
+const prisma = new PrismaClient();
+
 
 
 app.use(logger);
@@ -61,7 +65,7 @@ app.use('/payments',paymentRouter);
 
 app.use(errorHandler);
 
-app.listen(port,()=>
+app.listen(process.env.PORT,()=>
 {
-    console.log(`listening on port ${port}`)
+    console.log(`listening on port ${process.env.PORT}` )
 })
