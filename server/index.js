@@ -22,9 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.get("/",(req,res)=>
 {
-    res.send({
-        message:"welcome to crowwriter"
-    })
+    res.send("welcome to crowwriter")
 })
 
 
