@@ -20,11 +20,16 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
 
-app.get("/",(req,res)=>
-{
-    res.send("welcome to crowwriter")
-})
+// app.get("/",(req,res)=>
+// {
+//     res.send("welcome to crowwriter")
+// })
 
+
+//testing server running
+app.get("/", (req, res)=>{
+    res.send("welcome to crowwriter");
+    });
 
 const ordersRouter=require('./routes/orderRoutes');
 app.use('/orders',ordersRouter);
