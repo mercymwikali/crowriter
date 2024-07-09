@@ -1368,3 +1368,14 @@ C:\Users\mwika\Desktop\crowwriter\server\controllers\userContoller.js:150:53
           })
 
 Argument `status` is missing.	GET	/users/unapproved	undefined
+20240707	14:38:27	9eb31213-eb04-42ad-862f-ecc692511bc7	PrismaClientKnownRequestError: 
+Invalid `prisma.user.update()` invocation in
+C:\Users\mwika\Desktop\crowwriter\server\controllers\authController.js:152:21
+
+  149 }
+  150 
+  151 // Delete refresh token
+→ 152 await prisma.user.update(
+Can't reach database server at `roundhouse.proxy.rlwy.net:54383`
+
+Please make sure your database server is running at `roundhouse.proxy.rlwy.net:54383`.	POST	/auth/logout	http://localhost:5173

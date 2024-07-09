@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createBid } from '../actions/BidsAction';
 import useAuth from '../hooks/useAuth';
 
-const FreelancerBid = ({ visible, setModalVisible, job, onBidSuccess }) => {
+const FreelancerBid = ({ visible, setModalVisible, selectedJob: job, onBidSuccess }) => {
     const dispatch = useDispatch();
     const { loading, error, success } = useSelector(state => state.createBid);
     const { user } = useAuth();

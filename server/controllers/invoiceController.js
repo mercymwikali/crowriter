@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 // Get all invoices with reviews and fines included
@@ -6,10 +6,13 @@ const getAllInvoices = async (req, res) => {
   try {
     const invoices = await prisma.invoice.findMany({
       include: {
-        orders: true,
+        orders: {
+          include: {
+            reviews: true,
+            fines: true,
+          },
+        },
         payments: true,
-        fines: true, // Include fines associated with the invoice
-        reviews: true, // Include reviews associated with the invoice
         user: {
           select: {
             id: true,
@@ -34,10 +37,13 @@ const getInvoice = async (req, res) => {
     const invoice = await prisma.invoice.findUnique({
       where: { id },
       include: {
-        orders: true,
+        orders: {
+          include: {
+            reviews: true,
+            fines: true,
+          },
+        },
         payments: true,
-        fines: true,
-        reviews: true,
         user: {
           select: {
             id: true,
@@ -50,16 +56,15 @@ const getInvoice = async (req, res) => {
     });
 
     if (!invoice) {
-      return res.status(404).json({ error: 'Invoice not found' });
+      return res.status(404).json({ error: "Invoice not found" });
     }
 
     res.json(invoice);
   } catch (error) {
-    console.error('Error fetching invoice:', error);
+    console.error("Error fetching invoice:", error);
     res.status(500).json({ error: error.message });
   }
 };
-
 
 // Create a new invoice
 const createInvoice = async (req, res) => {
@@ -80,12 +85,14 @@ const createInvoice = async (req, res) => {
     });
 
     if (existingInvoices.length > 0) {
-      const duplicateOrderIds = existingInvoices.flatMap(invoice =>
-        invoice.orders.map(order => order.orderId)
+      const duplicateOrderIds = existingInvoices.flatMap((invoice) =>
+        invoice.orders.map((order) => order.orderId)
       );
 
       return res.status(400).json({
-        error: `The following orders are already linked to invoices: ${duplicateOrderIds.join(', ')}`,
+        error: `The following orders are already linked to invoices: ${duplicateOrderIds.join(
+          ", "
+        )}`,
       });
     }
 
@@ -108,7 +115,7 @@ const createInvoice = async (req, res) => {
     });
 
     const now = new Date();
-    const eligibleOrders = orderRecords.filter(order => {
+    const eligibleOrders = orderRecords.filter((order) => {
       // Check if submission date is at least 2 weeks before now
       const submissionDate = new Date(order.SubmittedJobs.createdAt);
       const twoWeeksAgo = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000);
@@ -117,16 +124,26 @@ const createInvoice = async (req, res) => {
 
     if (eligibleOrders.length !== orderRecords.length) {
       const notEligibleOrderIds = orderRecords
-        .filter(order => !eligibleOrders.some(eligibleOrder => eligibleOrder.id === order.id))
-        .map(order => order.orderId);
+        .filter(
+          (order) =>
+            !eligibleOrders.some(
+              (eligibleOrder) => eligibleOrder.id === order.id
+            )
+        )
+        .map((order) => order.orderId);
 
       return res.status(400).json({
-        error: `The following orders are not eligible for invoicing yet: ${notEligibleOrderIds.join(', ')}`,
+        error: `The following orders are not eligible for invoicing yet: ${notEligibleOrderIds.join(
+          ", "
+        )}`,
       });
     }
 
-    const orderIds = orderRecords.map(order => ({ id: order.id }));
-    const totalAmount = orderRecords.reduce((sum, order) => sum + order.amount, 0);
+    const orderIds = orderRecords.map((order) => ({ id: order.id }));
+    const totalAmount = orderRecords.reduce(
+      (sum, order) => sum + order.amount,
+      0
+    );
 
     const invoice = await prisma.invoice.create({
       data: {
@@ -143,7 +160,7 @@ const createInvoice = async (req, res) => {
       },
     });
 
-    res.json({ message: 'Invoice created successfully', data: invoice });
+    res.json({ message: "Invoice created successfully", data: invoice });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
@@ -155,7 +172,7 @@ const updateInvoice = async (req, res) => {
   try {
     const { id } = req.params;
     const { invoiceNumber, orders, payments } = req.body;
-    
+
     const orderRecords = await prisma.order.findMany({
       where: {
         orderId: {
@@ -168,8 +185,11 @@ const updateInvoice = async (req, res) => {
       },
     });
 
-    const totalAmount = orderRecords.reduce((sum, order) => sum + order.amount, 0);
-    
+    const totalAmount = orderRecords.reduce(
+      (sum, order) => sum + order.amount,
+      0
+    );
+
     // Calculate fines associated with orders
     const fineRecords = await prisma.fines.findMany({
       where: {
@@ -191,7 +211,7 @@ const updateInvoice = async (req, res) => {
       data: {
         invoiceNumber,
         orders: {
-          connect: orders.map(orderId => ({ id: orderId })),
+          connect: orders.map((orderId) => ({ id: orderId })),
         },
         payments: {
           create: payments,
@@ -212,7 +232,7 @@ const deleteInvoice = async (req, res) => {
     await prisma.invoice.delete({
       where: { id },
     });
-    res.json({ message: 'Invoice deleted successfully' });
+    res.json({ message: "Invoice deleted successfully" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

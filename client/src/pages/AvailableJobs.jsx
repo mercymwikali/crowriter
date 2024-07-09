@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { newOrdersList } from '../actions/orderActions';
-import { Card, Divider, Input, Select, Button, Tabs, Segmented, Slider, Table } from 'antd';
+import { Card, Divider, Input, Select, Button, Tabs, Segmented, Slider, Table, message } from 'antd';
 import { AppstoreOutlined, BarsOutlined, DownloadOutlined } from '@ant-design/icons';
 import { BsFilterSquare } from 'react-icons/bs';
 import { Categories } from '../constants/Categories';
@@ -18,15 +18,14 @@ const { TabPane } = Tabs;
 
 const AvailableJobs = () => {
   const dispatch = useDispatch();
-  const { loading, orders = [] } = useSelector(state => state.newOrders);
-  const { success: bidSuccess } = useSelector(state => state.createBid);
-  const { bids } = useSelector(state => state.freelancerBids);
-  const { loading: downloadLoading, error: downloadError, success: downloadSuccess } = useSelector(state => state.downloadFile);
+  const { loading, orders=[] } = useSelector((state) => state.newOrders);
+  const { success: bidSuccess } = useSelector((state) => state.createBid);
+  const { bids } = useSelector((state) => state.freelancerBids);
+  const { loading: downloadLoading, error: downloadError, success: downloadSuccess } = useSelector((state) => state.downloadFile);
 
   const [searchText, setSearchText] = useState('');
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [budgetRange, setBudgetRange] = useState([0, 1000]);
-  const [jobs, setJobs] = useState([]);
   const [filteredJobs, setFilteredJobs] = useState([]);
   const [viewMode, setViewMode] = useState('List');
   const [selectedJob, setSelectedJob] = useState(null);
@@ -41,7 +40,7 @@ const AvailableJobs = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    setJobs(orders || []);
+    setFilteredJobs(orders || []);
   }, [orders]);
 
   useEffect(() => {
@@ -49,25 +48,24 @@ const AvailableJobs = () => {
 
     if (searchText) {
       filtered = filtered.filter(
-        job =>
+        (job) =>
           job.orderId.toLowerCase().includes(searchText) ||
           job.topic.toLowerCase().includes(searchText)
       );
     }
 
     if (selectedCategory.length > 0) {
-      filtered = filtered.filter(job =>
-        selectedCategory.includes(job.category)
+      filtered = filtered.filter((order) =>
+        selectedCategory.includes(order.category)
       );
     }
 
     filtered = filtered.filter(
-      job => job.amount >= budgetRange[0] && job.amount <= budgetRange[1]
+      (order) => order.amount >= budgetRange[0] && order.amount <= budgetRange[1]
     );
 
-    // Filter jobs that are not bid by the current freelancer
-    filtered = filtered.filter(job =>
-      !bids.some(bid => bid.freelancerId === freelancerId && bid.orderId === job.orderId)
+    filtered = filtered.filter(
+      (order) => !bids || !bids.some((bid) => bid.freelancerId === freelancerId && bid.orderId === order.orderId)
     );
 
     setFilteredJobs(filtered);
@@ -80,15 +78,15 @@ const AvailableJobs = () => {
     }
   }, [bidSuccess]);
 
-  const handleSearch = value => {
+  const handleSearch = (value) => {
     setSearchText(value.toLowerCase());
   };
 
-  const handleCategoryChange = value => {
+  const handleCategoryChange = (value) => {
     setSelectedCategory(value);
   };
 
-  const handleBudgetChange = value => {
+  const handleBudgetChange = (value) => {
     setBudgetRange(value);
   };
 
@@ -98,31 +96,37 @@ const AvailableJobs = () => {
     setBudgetRange([0, 1000]);
   };
 
-  const handleViewModeChange = value => {
+  const handleViewModeChange = (value) => {
     setViewMode(value);
   };
 
-  const handleBid = job => {
+  const handleBid = (job) => {
     setSelectedJob(job);
     setBidModalVisible(true);
   };
 
-  const handleBidSuccess = bidJob => {
-    setFilteredJobs(prevJobs =>
-      prevJobs.filter(job => job.orderId !== bidJob.orderId)
+  const handleBidSuccess = (bidJob) => {
+    setFilteredJobs((prevJobs) =>
+      prevJobs.filter((job) => job.orderId !== bidJob.orderId)
     );
   };
 
-  const handleDownload = documentId => {
+  const handleDownload = (documentId) => {
     dispatch(downloadFile(documentId));
 
     if (downloadSuccess) {
       message.success('Document downloaded successfully');
-  } else {
+    } else {
       message.error('Error downloading document');
-  }
-    
+    }
   };
+
+  const handleViewJob = (job) => {
+    setSelectedJob(job);
+    setModalVisible(true);
+  };
+
+
 
   const columns = [
     {
@@ -144,7 +148,7 @@ const AvailableJobs = () => {
       title: 'Budget',
       dataIndex: 'amount',
       key: 'amount',
-      render: text => `ksh ${text}`,
+      render: (text) => `ksh ${text}`,
     },
     {
       title: 'Due In',
@@ -155,39 +159,43 @@ const AvailableJobs = () => {
       title: 'Submission Date',
       dataIndex: 'deadline',
       key: 'deadline',
-      render: text => new Date(text).toLocaleDateString(),
+      render: (text) => new Date(text).toLocaleDateString(),
     },
-    {
-      title: 'Download Attachments',
-      key: 'attachments',
-      render: (attachments) => (
-        <span>
-            {attachments.length > 0 && (
-                <Button type="link" onClick={() => handleDownload(attachments[0])} icon={<DownloadOutlined />}>
-                    Download
-                </Button>
-            )}
-        </span>
-    ),
-    },
+    // {
+    //   title: 'Download Attachments',
+    //   key: 'attachments',
+    //   render: (attachments) => (
+    //     <span>
+    //       {attachments.length > 0 && (
+    //         <Button
+    //           type="link"
+    //           onClick={() => handleDownload(attachments[0])}
+    //           icon={<DownloadOutlined />}
+    //         >
+    //           Download
+    //         </Button>
+    //       )}
+    //     </span>
+    //   ),
+    // },
     {
       title: 'Actions',
       key: 'actions',
       render: (text, record) => (
-        <span className="d-flex align-items-center justify-content-end">
-          <Button type="primary" onClick={() => handleViewAvailableJobs(record)}>
-            View Job
+        <span className="d-block d-md-flex align-items-center justify-content-end gap-2">
+          <Button type="primary" onClick={() => handleViewAvailableOrders(record)}>
+            View Order
           </Button>
           <Button type="default" onClick={() => handleBid(record)}>
-            Bid Job
+            Send Bid
           </Button>
         </span>
       ),
     },
   ];
 
-  const handleViewAvailableJobs = job => {
-    setSelectedJob(job);
+  const handleViewAvailableOrders = (order) => {
+    setSelectedJob(order);
     setModalVisible(true);
   };
 
@@ -198,10 +206,10 @@ const AvailableJobs = () => {
 
   return (
     <div>
-      <h4>Available Jobs</h4>
+      <h4>Available Orders</h4>
       <div className="d-block d-md-flex">
         <div className="w-25" style={{ marginTop: '20px', border: '1px solid #f3f3f3', padding: '10px', borderRadius: '5px', height: 'fit-content' }}>
-          <div className="d-flex align-items-center justify-content-between w-100 ">
+          <div className="d-flex align-items-center justify-content-between w-100">
             <div className="gap-2">
               <span className='h6 text-secondary'>Filter By:</span>
               <BsFilterSquare className='text-secondary my-1' />
@@ -225,14 +233,12 @@ const AvailableJobs = () => {
             mode='multiple'
             value={selectedCategory}
           >
-            {Categories.map(category => (
+            {Categories.map((category) => (
               <Option key={category.value} value={category.value}>
                 {category.label}
               </Option>
             ))}
           </Select>
-
-
           <Divider className='my-2' />
           <span className='d-flex align-items-center justify-content-between text-secondary'>
             <p className='m-0 p-0'>Budget</p>
@@ -253,7 +259,7 @@ const AvailableJobs = () => {
             <Segmented
               options={[
                 { label: 'List', value: 'List', icon: <BarsOutlined /> },
-                { label: 'Module', value: 'Module', icon: <AppstoreOutlined /> }
+                { label: 'Module', value: 'Module', icon: <AppstoreOutlined /> },
               ]}
               value={viewMode}
               onChange={handleViewModeChange}
@@ -263,46 +269,38 @@ const AvailableJobs = () => {
             <TabPane tab="All Orders" key="1">
               {viewMode === 'Module' ? (
                 <div className="d-flex gap-2 flex-wrap align-items-center justify-content-start w-100">
-                  {orders.map(job => (
-                    <Card key={job.orderId} title={`Order ID: ${job.orderId}`} className="w-100">
-                      <p><strong>Topic:</strong> {job.topic}</p>
-                      <p><strong>Budget:</strong> ksh {job.amount}</p>
-                      <p><strong>Due In:</strong> {job.duration}</p>
-                      <p><strong>Deadline:</strong> {new Date(job.deadline).toLocaleDateString()}</p>
-                      <Button type="primary" onClick={() => handleBid(job)}>Place Bid</Button>
+                  {filteredJobs.map((order) => (
+                    <Card key={order.orderId} title={`Order ID: ${order.orderId}`} className="w-100">
+                      <p><strong>Topic:</strong> {order.topic}</p>
+                      <p><strong>Budget:</strong> ksh {order.amount}</p>
+                      <p><strong>Due In:</strong> {order.duration}</p>
+                      <p><strong>Submission Date:</strong> {new Date(order.deadline).toLocaleDateString()}</p>
+                      <Button type="primary" onClick={() => handleBid(order)}>Bid</Button>
                     </Card>
                   ))}
                 </div>
               ) : (
-                <Table
-                  dataSource={filteredJobs}
-                  columns={columns}
-                  rowKey="orderId"
-                  loading={loading}
-                />
+                <Table columns={columns} dataSource={filteredJobs} loading={loading} rowKey="orderId" />
               )}
-            </TabPane>
-            <TabPane tab="My Bids" key="2">
-              <ViewBid />
             </TabPane>
           </Tabs>
         </div>
       </div>
-      {selectedJob && (
+
         <ViewJob
           visible={modalVisible}
-          onClose={handleCloseModal}
-          job={selectedJob}
+          onCancel={handleCloseModal}
+          selectedJob={selectedJob}
+          setBidModalVisible={setBidModalVisible}
         />
-      )}
-      {selectedJob && (
+    
         <FreelancerBid
           visible={bidModalVisible}
-          setModalVisible={setBidModalVisible}
-          job={selectedJob}
+          onCancel={() => setBidModalVisible(false)}
+          selectedJob={selectedJob}
           onBidSuccess={handleBidSuccess}
         />
-      )}
+    
     </div>
   );
 };

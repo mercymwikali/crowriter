@@ -27,7 +27,7 @@ const AllOrders = () => {
     const [searchText, setSearchText] = useState('');
     const [selectedCategory, setSelectedCategory] = useState([]);
     const [selectedService, setSelectedService] = useState([]);
-    const [viewMode, setViewMode] = useState('Grid'); // Default view mode set to 'Grid'
+    const [viewMode, setViewMode] = useState('table'); // Default view mode set to 'table'
     const [filteredOrders, setFilteredOrders] = useState([]);
     const [selectedJob, setSelectedJob] = useState(null);
     const [viewModalVisible, setViewModalVisible] = useState(false);

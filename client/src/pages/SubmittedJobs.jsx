@@ -6,6 +6,8 @@ import AddReviewModal from '../components/AddReview';
 import FineOrderModal from '../components/FineOrder'; // Make sure this import is correct
 import { useDispatch, useSelector } from 'react-redux';
 import { downloadSubmission, getSubmissions } from '../actions/submissionActions';
+import ReassignJob from '../components/ReassignJob';
+import ReDoOrder from '../components/ReDoOrder';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -17,6 +19,8 @@ const SubmittedJobs = () => {
     const [viewMode, setViewMode] = useState('List');
     const [addReviewVisible, setAddReviewVisible] = useState(false);
     const [fineOrderVisible, setFineOrderVisible] = useState(false);
+const [reassignOrderVisible, setReassignOrderVisible] = useState(false);
+const [reDoOrderVisible, setReDoOrderVisible] = useState(false);
     const [selectedOrder, setSelectedOrder] = useState(null);
 
     useEffect(() => {
@@ -44,10 +48,12 @@ const SubmittedJobs = () => {
                 setSelectedOrder(record); // Set selectedOrder state with the record
                 break;
             case 're-assign-order':
-                // Handle re-assign order action
+              setReassignOrderVisible(true);
+              setSelectedOrder(record);
                 break;
             case 're-do-order':
-                // Handle re-do order action
+                setReDoOrderVisible(true);
+                setSelectedOrder(record);
                 break;
             case 'fine-order':
                 setFineOrderVisible(true);
@@ -57,7 +63,7 @@ const SubmittedJobs = () => {
                 break;
         }
     };
-    
+
     const menu = (record) => (
         <Menu onClick={(e) => handleMenuClick(e, record)}>
             <Menu.Item key="add-review">Add Review</Menu.Item>
@@ -146,6 +152,14 @@ const SubmittedJobs = () => {
         setAddReviewVisible(false);
     };
 
+    const handleReassignOrderCancel = () => {
+        setReassignOrderVisible(false);
+    }
+
+    const handleReDoOrderCancel = () => {
+        setReDoOrderVisible(false);
+    }
+
     const handleFineOrderCancel = () => {
         setFineOrderVisible(false);
     };
@@ -222,16 +236,26 @@ const SubmittedJobs = () => {
                     )}
                 />
             )}
-           <AddReviewModal
-    visible={addReviewVisible}
-    onCancel={handleAddReviewCancel}
-    selectedOrder={selectedOrder} // Pass selectedOrder state to modal
-/>
+            <AddReviewModal
+                visible={addReviewVisible}
+                onCancel={handleAddReviewCancel}
+                selectedOrder={selectedOrder} // Pass selectedOrder state to modal
+            />
 
             <FineOrderModal
                 visible={fineOrderVisible}
                 onCancel={handleFineOrderCancel}
                 onSubmit={handleFineOrderSubmit}
+                selectedOrder={selectedOrder}
+            />
+            <ReassignJob
+                visible={reassignOrderVisible}
+                onCancel={handleReassignOrderCancel}
+                selectedOrder={selectedOrder}
+            />
+            <ReDoOrder
+                visible={reDoOrderVisible}
+                onCancel={handleReDoOrderCancel}
                 selectedOrder={selectedOrder}
             />
         </div>

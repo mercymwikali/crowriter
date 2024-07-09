@@ -79,11 +79,11 @@ const items = [
     icon: <RiFolderWarningLine />,
     label: 'Fined Orders',
     children: [
-      {
-        key: '/Fines/New-Fine',
-        icon: <FaClock />,
-        label: 'New Fine',
-      },
+      // {
+      //   key: '/Fines/New-Fine',
+      //   icon: <FaClock />,
+      //   label: 'New Fine',
+      // },
       {
         key: 'fines/fined-orders',
         icon: <FaCircle />,

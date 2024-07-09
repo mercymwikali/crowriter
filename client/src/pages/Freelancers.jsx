@@ -4,6 +4,7 @@ import { UserOutlined, BarsOutlined, AppstoreOutlined } from '@ant-design/icons'
 import { Segmented } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { freelancerList } from '../actions/userActions';
+import { useNavigate } from 'react-router-dom';
 
 const { Option } = Select;
 
@@ -16,6 +17,8 @@ const Freelancers = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedFreelancer, setSelectedFreelancer] = useState(null);
   const dispatch = useDispatch();
+
+  const navigate=useNavigate();
 
   const { loading, error, freelancers } = useSelector(state => state.freelancersList);
 
@@ -157,6 +160,9 @@ const Freelancers = () => {
           value={viewMode}
           onChange={handleViewModeChange}
         />
+      </div>
+      <div style={{ display: 'flex', flexGrow: 1, flexWrap: 'wrap' }}>
+        <Button type="primary" onClick={()=>navigate('/manage-users/new-manager')}>Add Freelancer</Button>
       </div>
       {viewMode === 'list' ? (
         <div style={{ display: 'flex', flexGrow: 1, flexWrap: 'wrap' }}>

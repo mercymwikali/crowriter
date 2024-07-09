@@ -93,7 +93,7 @@ export const paymentDetails = (id) => async (dispatch, getState) => {
             withCredentials: true,
         };
 
-        const { data: res } = await axios.get(`${API}payment/details/${id}`, config);
+        const { data: res } = await axios.get(`${API}payments/details/${id}`, config);
 
         dispatch({ type: PAYMENT_DETAILS_SUCCESS, payload: res });
 
@@ -105,5 +105,6 @@ export const paymentDetails = (id) => async (dispatch, getState) => {
                     ? error.response.data.message
                     : error.message,
         });
+        
     }
 };

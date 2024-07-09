@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Divider, Input, Select, Button, Tabs, Segmented, Slider, Table, Modal } from 'antd';
+import { Card, Divider, Input, Select, Button, Slider, Table, Modal, Segmented } from 'antd';
 import { AppstoreOutlined, BarsOutlined, DownloadOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { BsFilterSquare } from 'react-icons/bs';
 import { Categories } from '../constants/Categories';
-import ViewBid from './ViewBid';
+import ViewJob from '../components/ViewJob';
 import { deleteBid, freelancerBids } from '../actions/BidsAction';
 import useAuth from '../hooks/useAuth';
-import ViewJob from '../components/ViewJob';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -15,7 +14,6 @@ const { Option } = Select;
 const MyBids = () => {
     const dispatch = useDispatch();
     const { loading, error, bids = [] } = useSelector((state) => state.freelancerBids);
-
     const { success: deleteSuccess, error: deleteError } = useSelector(state => state.deleteBid);
 
     const [searchText, setSearchText] = useState('');
@@ -26,15 +24,21 @@ const MyBids = () => {
     const [selectedJob, setSelectedJob] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
 
+    const freelancer = useAuth()?.user?.id;
 
+    useEffect(() => {
+        dispatch(freelancerBids(freelancer));
+    }, [dispatch, freelancer]);
+
+    useEffect(() => {
+        setFilteredJobs(bids || []);
+    }, [bids]);
 
     const handleViewJob = (job) => {
         setSelectedJob(job);
         setModalVisible(true);
     };
-    const freelancer = useAuth()?.user?.id;
 
-    // console.log(freelancer);
     const handleDeleteBid = (jobId) => {
         Modal.confirm({
             title: 'Are you sure you want to delete this bid?',
@@ -50,38 +54,6 @@ const MyBids = () => {
         setSelectedJob(null);
         setModalVisible(false);
     };
-
-    useEffect(() => {
-        dispatch(freelancerBids(freelancer));
-    }, [dispatch]);
-
-    useEffect(() => {
-        setFilteredJobs(bids || []);
-    }, [bids]);
-
-    useEffect(() => {
-        let filtered = bids
-
-        if (searchText) {
-            filtered = filtered.filter(
-                (job) =>
-                    job.order.orderId.toLowerCase().includes(searchText) ||
-                    job.order.topic.toLowerCase().includes(searchText)
-            );
-        }
-
-        if (selectedCategory.length > 0) {
-            filtered = filtered.filter((job) =>
-                selectedCategory.includes(job.order.category)
-            );
-        }
-
-        filtered = filtered.filter(
-            (job) => job.order.amount >= budgetRange[0] && job.order.amount <= budgetRange[1]
-        );
-
-        setFilteredJobs(filtered);
-    }, [searchText, selectedCategory, budgetRange, bids]);
 
     const handleSearch = (value) => {
         setSearchText(value.toLowerCase());
@@ -100,9 +72,6 @@ const MyBids = () => {
         setSelectedCategory([]);
         setBudgetRange([0, 1000]);
     };
-
-
-
 
     const columns = [
         {
@@ -132,16 +101,12 @@ const MyBids = () => {
             render: (text) => new Date(text).toLocaleDateString(),
         },
         {
-
             title: 'Attachment',
             key: 'attachment',
-
             render: (_, job) => (
-                <div>
-                    <Button type="link" icon={<DownloadOutlined />}>
-                        Download Attachments
-                    </Button>
-                </div>
+                <Button type="link" icon={<DownloadOutlined />}>
+                    Download Attachments
+                </Button>
             ),
         },
         {
@@ -162,6 +127,30 @@ const MyBids = () => {
             ),
         },
     ];
+
+    useEffect(() => {
+        let filtered = bids;
+
+        if (searchText) {
+            filtered = filtered.filter(
+                (job) =>
+                    job.order.orderId.toLowerCase().includes(searchText) ||
+                    job.order.topic.toLowerCase().includes(searchText)
+            );
+        }
+
+        if (selectedCategory.length > 0) {
+            filtered = filtered.filter((job) =>
+                selectedCategory.includes(job.order.category)
+            );
+        }
+
+        filtered = filtered.filter(
+            (job) => job.order.amount >= budgetRange[0] && job.order.amount <= budgetRange[1]
+        );
+
+        setFilteredJobs(filtered);
+    }, [searchText, selectedCategory, budgetRange, bids]);
 
     return (
         <div>
@@ -234,10 +223,7 @@ const MyBids = () => {
                                         key={job.order.orderId}
                                         title={`Order ID: ${job.order.orderId}`}
                                         style={{ margin: '10px' }}
-                                        extra={
-                                            <Button type="link" icon={<DownloadOutlined />}>Download</Button>
-
-                                        }
+                                        extra={<Button type="link" icon={<DownloadOutlined />}>Download</Button>}
                                     >
                                         <p><strong>Topic:</strong> {job.order.topic}</p>
                                         <p><strong>Category:</strong> {job.order.category}</p>
@@ -272,11 +258,9 @@ const MyBids = () => {
             </div>
             {
                 selectedJob && (
-                    <ViewJob open={modalVisible} onCancel={handleCloseModal} selectedJob={selectedJob.order} />
-
+                    <ViewJob visible={modalVisible} onCancel={handleCloseModal} selectedJob={selectedJob.order} />
                 )
             }
-
         </div>
     );
 };

@@ -61,7 +61,7 @@ const ViewInvoices = () => {
       render: (text, record) => <a href={`#${record.orderId}`}>{text}</a>,
     },
     {
-      title: 'Amount',
+      title: 'Amount Claimed',
       dataIndex: 'totalAmount',
       key: 'totalAmount',
       render: text => `Ksh ${text}`,
@@ -76,7 +76,7 @@ const ViewInvoices = () => {
       title: 'Actions',
       key: 'actions',
       render: (text, record) => (
-        <span>
+        <span className='d-block d-md-flex align-items-center justify-content-start gap-2'>
           <Button type="primary" onClick={() => handleViewInvoice(record)}>View Invoice</Button>
           <Button type="default" onClick={() => handlePayInvoice(record)}>Pay Invoice</Button>
         </span>

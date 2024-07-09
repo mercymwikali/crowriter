@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import Typography from 'antd/es/typography/Typography';
 import useAuth from '../hooks/useAuth';
 import { Card } from 'antd';
-import { MdHome } from 'react-icons/md';
-import { RiHome3Fill, RiMoneyEuroCircleLine } from 'react-icons/ri';
+import { RiMoneyEuroCircleLine, RiHome3Fill } from 'react-icons/ri';
 import { BsCheck2Circle } from 'react-icons/bs';
-import MyPaidInv from './MyPaidInv';
 import PaidInvoices from './PaidInvoices';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
-const AdminDashboard = () => {
+const ManagerDashboard = () => {
   const userInfo = useAuth().user;
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
+  const navigate = useNavigate(); // Initialize useNavigate
 
   useEffect(() => {
     // Update currentDateTime every second
@@ -64,6 +64,11 @@ const AdminDashboard = () => {
 
   const jobCount = 0;
 
+  // Navigation handler
+  const handleNavigation = (route) => {
+    navigate(route); // Navigate to the specified route
+  };
+
   return (
     <>
       <Typography.Title level={3} className='text-start mt-3 px-3' style={{ color: '#001529' }}>
@@ -92,6 +97,7 @@ const AdminDashboard = () => {
                     top: '15px',
                     right: '10px'
                   }}
+                  onClick={() => handleNavigation('/manager/manage-jobs/bids-list')} // Example navigation on click
                 >
                   Pending Bids 
                 </Typography.Text>
@@ -119,6 +125,7 @@ const AdminDashboard = () => {
                     top: '15px',
                     right: '10px'
                   }}
+                  onClick={() => handleNavigation('/completed-jobs')} // Example navigation on click
                 >
                   Completed
                 </Typography.Text>
@@ -146,6 +153,7 @@ const AdminDashboard = () => {
                     top: '15px',
                     right: '10px'
                   }}
+                  onClick={() => handleNavigation('/active-jobs')} // Example navigation on click
                 >
                   Active Jobs
                 </Typography.Text>
@@ -173,6 +181,7 @@ const AdminDashboard = () => {
                     top: '15px',
                     right: '10px'
                   }}
+                  onClick={() => handleNavigation('/invoices')} // Example navigation on click
                 >
                   Payment
                 </Typography.Text>
@@ -188,4 +197,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default ManagerDashboard;

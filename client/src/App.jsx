@@ -71,7 +71,7 @@ function App() {
       <Route element={<PrivateRoute allowedRoles={[ROLES.Admin, ROLES.Manager, ROLES.Freelancer]} />}>
         <Route path="/dashboard" element={<DashboardRedirect userRole={userInfo?.role} />} />
 
-        <Route path="manager/*" element={<ManagerLayout />}>
+        <Route path="manager/*" element={<ManagerLayout userRole={userInfo?.role} allowedRoles={[ROLES.Admin, ROLES.Manager]} />}>
           <Route index element={<ManagerDashboard />} />
           <Route path="create-order" element={<PostJob />} />
           <Route path="manage-jobs/all-jobs" element={<AllJobs />} />
@@ -87,7 +87,7 @@ function App() {
           <Route path="user-profile" element={<UserProfile user={userInfo} />} /> {/* Pass user info */}
         </Route>
 
-        <Route path="admin/*" element={<AdminLayout />}>
+        <Route path="admin/*" element={<AdminLayout userRole={userInfo?.role} allowedRoles={[ROLES.Admin]} />}>
           <Route index element={<AdminDashboard />} />
           <Route path="manage-jobs/all-jobs" element={<AllJobs />} />
           <Route path="manage-users/new-manager" element={<NewManager />} />
@@ -97,7 +97,7 @@ function App() {
           <Route path="user-profile" element={<UserProfile user={userInfo} />} /> {/* Pass user info */}
         </Route>
 
-        <Route path="freelancer/*" element={<FreelancerLayout />}>
+        <Route path="freelancer/*" element={<FreelancerLayout userRole={userInfo?.role} />}>
           <Route index element={<FreelancerDashboard />} />
           <Route path="available-jobs" element={<AvailableJobs />} />
           <Route path="my-bids" element={<MyBids />} />

@@ -7,10 +7,14 @@ import { RiHome3Fill, RiMoneyEuroCircleLine } from 'react-icons/ri';
 import { BsCheck2Circle } from 'react-icons/bs';
 import MyPaidInv from './MyPaidInv';
 import PaidInvoices from './PaidInvoices';
+import { useNavigate } from 'react-router-dom';
 
 const ManagerDashboard = () => {
   const userInfo = useAuth().user;
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
+
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     // Update currentDateTime every second
@@ -73,7 +77,10 @@ const ManagerDashboard = () => {
 
       <div className="row">
         <div className="col-6 col-md-3">
-          <Card className="m-3" style={{ width: '16rem', backgroundColor: '#e6f8d1' }} bordered={false}>
+          <Card className="m-3" style={{ width: '16rem', backgroundColor: '#e6f8d1',cursor: 'pointer' }} bordered={false}  
+          
+            onClick={() => navigate('/manager/manage-jobs/bids-list')} // Example navigation on click
+          >
             <div className="d-flex flex-row align-items-start justify-content-between">
               <div className="d-flex flex-column">
                 <RiMoneyEuroCircleLine size={30} style={{ color: '#7DA0FA' }} />
@@ -100,7 +107,11 @@ const ManagerDashboard = () => {
           </Card>
         </div>
         <div className="col-6 col-md-3">
-          <Card className="m-3" style={{ width: '16rem', backgroundColor: '#fef0da' }}>
+          <Card className="m-3" style={{ width: '16rem', backgroundColor: '#fef0da', cursor: 'pointer' }}
+            bordered={false}
+            onClick={() => navigate('manage-jobs/submitted-jobs')} // Example navigation on click
+
+            >
             <div className="d-flex flex-row align-items-start justify-content-between">
               <div className="d-flex flex-column">
                 <BsCheck2Circle size={30} style={{ color: '#9fcc2e' }} />
@@ -127,7 +138,10 @@ const ManagerDashboard = () => {
           </Card>
         </div>
         <div className="col-6 col-md-3">
-            <Card className="m-3" style={{ width: '16rem', backgroundColor: '#d0e0fc' }}>
+            <Card className="m-3" style={{ width: '16rem', backgroundColor: '#d0e0fc', cursor: 'pointer' }}
+            bordered={false}
+            onClick={() => navigate('manage-jobs/assigned-jobs')} // Example navigation on click
+            >
             <div className="d-flex flex-row align-items-start justify-content-between">
               <div className="d-flex flex-column">
                 <RiHome3Fill size={30} style={{ color: '#9fcc2e' }} />
@@ -154,7 +168,9 @@ const ManagerDashboard = () => {
           </Card>
         </div>
         <div className="col-6 col-md-3">
-           <Card className="m-3" style={{ width: '16rem', backgroundColor: '#feffdb' }} bordered={false}>
+           <Card className="m-3" style={{ width: '16rem', backgroundColor: '#feffdb', cursor: 'pointer' }} bordered={false}
+           onClick={() => navigate('payments/unpaid-orders')}
+           >
             <div className="d-flex flex-row align-items-start justify-content-between">
               <div className="d-flex flex-column">
                 <RiMoneyEuroCircleLine size={30} style={{ color: '#FE9496' }} />

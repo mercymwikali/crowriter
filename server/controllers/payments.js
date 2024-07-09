@@ -73,12 +73,20 @@ const getPayment = asyncHandler(async (req, res) => {
 const writersPayment = asyncHandler(async (req, res) => {
     try {
         const { id } = req.params;
-        const payment = await prisma.payment.findMany({
+        const payments = await prisma.payment.findMany({
             where: {
                 userId: id
             },
             include: {
-                invoice: true,
+                invoice: {
+                    include: {
+                        orders: {
+                            include: {
+                                fines: true,
+                            },
+                        },
+                    },
+                },
                 user: {
                     select: {
                         id: true,
@@ -89,12 +97,13 @@ const writersPayment = asyncHandler(async (req, res) => {
                 },
             },
         });
-        res.json(payment);
+        res.json(payments);
     } catch (error) {
         console.log("Error getting payment:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 });
+
 
 const getAllPayments = asyncHandler(async (req, res) => {
     try {

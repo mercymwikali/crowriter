@@ -20,7 +20,7 @@ const items = [
     label: 'Dashboard',
   },
   {
-    key: '/create-order',
+    key: 'create-order',
     icon: <FaEdit />,
     label: 'New Order',
   },
