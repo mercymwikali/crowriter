@@ -2,7 +2,7 @@ const allowedOrigins = [
     'http://localhost:5173',
  
  
-    'https://crowwriter.vercel.app',
+    'https://crowriter.vercel.app',
      
  ]
  
